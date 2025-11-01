@@ -128,7 +128,6 @@ public class MainFrame extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String username = userID.getText().trim();
         String passwordInput = new String(pass.getPassword());
-
         if (username.isEmpty() || passwordInput.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
             return;

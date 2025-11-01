@@ -5,8 +5,9 @@ import javax.swing.JFrame;
 
 public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PanelGiaoDichCaNhan.class.getName());
-
-    public PanelGiaoDichCaNhan() {
+    Home home;
+    public PanelGiaoDichCaNhan(Home a) {
+        this.home=a;
         initComponents();
 //        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
@@ -185,19 +186,19 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
     }
     
 
-    public static void main(String args[]) {
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        java.awt.EventQueue.invokeLater(() -> new PanelGiaoDichCaNhan().setVisible(true));
-    }
+//    public static void main(String args[]) {
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+//            logger.log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        java.awt.EventQueue.invokeLater(() -> new PanelGiaoDichCaNhan().setVisible(true));
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton ThemThuNhap;

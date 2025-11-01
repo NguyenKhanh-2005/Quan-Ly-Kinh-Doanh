@@ -208,11 +208,11 @@ public class Home extends javax.swing.JFrame {
 
     private void buttonDuAnKinhDoanhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDuAnKinhDoanhActionPerformed
         // TODO add your handling code here:
-        new PanelDuAnKinhDoanh().setVisible(true);
+        new PanelDuAnKinhDoanh(this).setVisible(true);
     }//GEN-LAST:event_buttonDuAnKinhDoanhActionPerformed
 
     private void buttonChiTieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChiTieuActionPerformed
-           new PanelGiaoDichCaNhan().setVisible(true);
+           new PanelGiaoDichCaNhan(this).setVisible(true);
     }//GEN-LAST:event_buttonChiTieuActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
