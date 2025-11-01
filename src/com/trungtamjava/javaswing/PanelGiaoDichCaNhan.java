@@ -1,6 +1,7 @@
 
 package com.trungtamjava.javaswing;
 
+import java.time.LocalDate;
 import javax.swing.JFrame;
 
 public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
@@ -32,11 +33,11 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
         jFrame1 = new javax.swing.JFrame();
         jFrame2 = new javax.swing.JFrame();
         jToggleButton1 = new javax.swing.JToggleButton();
-        ThemThuNhap = new javax.swing.JToggleButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btnXuaGiaoDich = new javax.swing.JButton();
         btnXoaGiaoDich = new javax.swing.JButton();
+        btnThemGiaoDich = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
@@ -87,15 +88,6 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
 
         jToggleButton1.setText("quay lại");
 
-        ThemThuNhap.setBackground(new java.awt.Color(102, 255, 102));
-        ThemThuNhap.setText("Thêm giao dịch");
-        ThemThuNhap.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        ThemThuNhap.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ThemThuNhapActionPerformed(evt);
-            }
-        });
-
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -129,8 +121,25 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
         }
 
         btnXuaGiaoDich.setText("Sửa giao dịch");
+        btnXuaGiaoDich.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXuaGiaoDichActionPerformed(evt);
+            }
+        });
 
         btnXoaGiaoDich.setText("Xoá giao dịch");
+        btnXoaGiaoDich.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaGiaoDichActionPerformed(evt);
+            }
+        });
+
+        btnThemGiaoDich.setText("Thêm giao dịch");
+        btnThemGiaoDich.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemGiaoDichActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,16 +150,16 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jToggleButton1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(167, 167, 167)
-                        .addComponent(ThemThuNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(183, 183, 183)
+                        .addComponent(btnThemGiaoDich, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnXuaGiaoDich)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnXoaGiaoDich)))
-                .addContainerGap(199, Short.MAX_VALUE))
+                .addContainerGap(241, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {ThemThuNhap, btnXoaGiaoDich, btnXuaGiaoDich});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnXoaGiaoDich, btnXuaGiaoDich});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,33 +167,83 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
                 .addComponent(jToggleButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ThemThuNhap)
                     .addComponent(btnXuaGiaoDich)
-                    .addComponent(btnXoaGiaoDich))
+                    .addComponent(btnXoaGiaoDich)
+                    .addComponent(btnThemGiaoDich))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {ThemThuNhap, btnXoaGiaoDich, btnXuaGiaoDich});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnXoaGiaoDich, btnXuaGiaoDich});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ThemThuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThemThuNhapActionPerformed
-        a=new ThemChiTieu(this);
-        a.setVisible(true);
-    }//GEN-LAST:event_ThemThuNhapActionPerformed
+    private void btnXoaGiaoDichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaGiaoDichActionPerformed
+        xoaDongDangChon();
+    }//GEN-LAST:event_btnXoaGiaoDichActionPerformed
 
-    
+    private void btnXuaGiaoDichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuaGiaoDichActionPerformed
+        int row = jTable1.getSelectedRow();
+        if (row == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một giao dịch để sửa!");
+            return;
+        }
+
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+
+        String loai = (String) model.getValueAt(row, 0);
+        String moTa = (String) model.getValueAt(row, 1);
+        double soTien = (double) model.getValueAt(row, 2);
+        String ngay = (String) model.getValueAt(row, 3);
+        String ghiChu = (String) model.getValueAt(row, 4);
+
+        // Mở form sửa có dữ liệu sẵn
+        ThemChiTieu formSua = new ThemChiTieu(this, loai, moTa, soTien, ngay, ghiChu, row);
+        formSua.setVisible(true);
+    }//GEN-LAST:event_btnXuaGiaoDichActionPerformed
+
+    private void btnThemGiaoDichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemGiaoDichActionPerformed
+        new ThemChiTieu(this).setVisible(true);
+    }//GEN-LAST:event_btnThemGiaoDichActionPerformed
+    public void capNhatDong(int row, String loai, String moTa, double soTien, String ngay, String ghiChu) {
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+
+        model.setValueAt(loai, row, 0);
+        model.setValueAt(moTa, row, 1);
+        model.setValueAt(soTien, row, 2);
+        model.setValueAt(ngay, row, 3);
+        model.setValueAt(ghiChu, row, 4);
+
+        // cập nhật lại trong danh sách Home
+//        if (home != null && row < home.dataGiaoDichCaNhan.size()) {
+//            giaoDich gd = home.dataGiaoDichCaNhan.get(row);
+//            gd.loai=loai;
+//            gd.moTa=moTa;
+//            gd.soTien=soTien;
+////            gd.ngay=LocalDate.parse(ngay);
+//            gd.ghiChu=ghiChu;
+//        }
+    }
+
     /**
      * @param args the command line arguments
      */
     public void capNhatBang(String loai, String moTa, double soTien, String ngay, String ghiChu) {
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
         model.addRow(new Object[]{loai, moTa, soTien, ngay, ghiChu});
+        home.dataGiaoDichCaNhan.add(new giaoDich(moTa, loai,ngay, soTien,ghiChu));
     }
-    
+    public void xoaDongDangChon() {
+        int row = jTable1.getSelectedRow(); // Lấy dòng đang chọn
+        if (row == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một giao dịch để xoá!");
+            return;
+        }
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+        model.removeRow(row);
+    }
 
 //    public static void main(String args[]) {
 //        try {
@@ -201,7 +260,7 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton ThemThuNhap;
+    private javax.swing.JButton btnThemGiaoDich;
     private javax.swing.JButton btnXoaGiaoDich;
     private javax.swing.JButton btnXuaGiaoDich;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;

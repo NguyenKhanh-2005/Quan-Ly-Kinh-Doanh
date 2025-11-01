@@ -141,15 +141,15 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jToggleButton1" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="167" max="-2" attributes="0"/>
-                      <Component id="ThemThuNhap" linkSize="3" min="-2" pref="125" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="183" max="-2" attributes="0"/>
+                      <Component id="btnThemGiaoDich" min="-2" pref="109" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnXuaGiaoDich" linkSize="3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnXoaGiaoDich" linkSize="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="199" max="32767" attributes="0"/>
+              <EmptySpace pref="241" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -159,9 +159,9 @@
               <Component id="jToggleButton1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="ThemThuNhap" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnXuaGiaoDich" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnXoaGiaoDich" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnThemGiaoDich" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane2" pref="504" max="32767" attributes="0"/>
@@ -175,18 +175,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="quay l&#x1ea1;i"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JToggleButton" name="ThemThuNhap">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="66" green="ff" red="66" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Th&#xea;m giao d&#x1ecb;ch"/>
-        <Property name="horizontalTextPosition" type="int" value="0"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ThemThuNhapActionPerformed"/>
-      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
       <AuxValues>
@@ -246,11 +234,25 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="S&#x1eed;a giao d&#x1ecb;ch"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXuaGiaoDichActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnXoaGiaoDich">
       <Properties>
         <Property name="text" type="java.lang.String" value="Xo&#xe1; giao d&#x1ecb;ch"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoaGiaoDichActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnThemGiaoDich">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Th&#xea;m giao d&#x1ecb;ch"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThemGiaoDichActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -10,19 +10,35 @@ public class ThemChiTieu extends javax.swing.JFrame {
     private PanelGiaoDichCaNhan parentPanel;
     String moTa,Loai,ghiChu;
     double soTien;
+    private int rowPick;
     LocalDate ngay;
-    boolean check;
+    int check;
     private java.beans.PropertyChangeSupport pcs = new java.beans.PropertyChangeSupport(this);
-    DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    DateTimeFormatter fmt_out=DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private PanelGiaoDichCaNhan parent;
     public ThemChiTieu(PanelGiaoDichCaNhan parent) {
         initComponents();
         this.parent=parent;
         setLocationRelativeTo(null);
-        check=false;
+        check=1;
         LocalDate today = LocalDate.now();
         ngaytxt.setText(today.format(fmt));
         moTa="";Loai="";ghiChu="";
+    }
+    public ThemChiTieu(PanelGiaoDichCaNhan parent, String loai, String moTa, double soTien, String ngay, String ghiChu, int rowIndex) {
+        initComponents();
+        this.parent = parent;
+        setLocationRelativeTo(null);
+        check = 2;
+
+        // Set dữ liệu sẵn vào các ô nhập
+        loaitxt.setSelectedItem(loai);
+        moTatxt.setText(moTa);
+        soTientxt.setText(String.valueOf(soTien));
+        ngaytxt.setText(LocalDate.parse(ngay,fmt_out).format(fmt));
+        ghiChutxt.setText(ghiChu);
+
     }
     public void capNhatData(){
         moTa=moTatxt.getText();
@@ -30,7 +46,7 @@ public class ThemChiTieu extends javax.swing.JFrame {
         ghiChu=ghiChutxt.getText();
         soTien=Double.parseDouble(soTientxt.getText());
         ngay=LocalDate.parse(ngaytxt.getText(),fmt);
-        check=true;
+        
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -193,27 +209,33 @@ public class ThemChiTieu extends javax.swing.JFrame {
     }//GEN-LAST:event_soTientxtActionPerformed
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
-        try{
-            capNhatData();
-            if (parent != null) {
-                parent.capNhatBang(Loai, moTa, soTien, ngay.toString(), ghiChu);
+        if(check==1){
+            try{
+                capNhatData();
+                if (parent != null) {
+                    parent.capNhatBang(Loai, moTa, soTien, ngay.toString(), ghiChu);
+                }
+            }catch(Exception e){
+                System.out.println("loi");
             }
-        }catch(Exception e){
-            System.out.println("loi");
+            dispose();
         }
-        dispose();
+        else if(check==2){
+            try {
+                capNhatData();
+                parent.capNhatDong(rowPick, Loai, moTa, soTien, ngay.format(fmt_out), ghiChu);
+            } catch (Exception e) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Dữ liệu không hợp lệ!");
+            }
+            dispose();
+        }
     }//GEN-LAST:event_btnOKActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
-    public void addPropertyChangeListener(java.beans.PropertyChangeListener listener) {
-        pcs.addPropertyChangeListener(listener);
-    }
-    public void removePropertyChangeListener(java.beans.PropertyChangeListener listener) {
-        pcs.removePropertyChangeListener(listener);
-    }
+
     /**
      * @param args the command line arguments
      */
