@@ -1,9 +1,10 @@
 package com.trungtamjava.javaswing;
 
 import javax.swing.*;
-
+import java.util.*;
 public class Home extends javax.swing.JFrame {
     private String name;
+    ArrayList<giaoDich> dataGiaoDichCaNhan;
     public Home(String username) {
         name=username;
         initComponents();
