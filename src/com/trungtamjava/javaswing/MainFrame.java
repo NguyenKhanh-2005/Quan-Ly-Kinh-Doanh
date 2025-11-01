@@ -8,6 +8,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         super("Quản lý tài chính");
         initComponents();
+        getRootPane().setDefaultButton(btnLogin);
     }
 
     @SuppressWarnings("unchecked")
@@ -20,7 +21,7 @@ public class MainFrame extends javax.swing.JFrame {
         login = new javax.swing.JLabel();
         password = new javax.swing.JLabel();
         userID = new javax.swing.JTextField();
-        button_login = new javax.swing.JButton();
+        btnLogin = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         img = new javax.swing.JLabel();
 
@@ -38,13 +39,13 @@ public class MainFrame extends javax.swing.JFrame {
         password.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         password.setText("Password:");
 
-        button_login.setBackground(new java.awt.Color(0, 255, 255));
-        button_login.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        button_login.setForeground(new java.awt.Color(255, 0, 0));
-        button_login.setText("LOGIN");
-        button_login.addActionListener(new java.awt.event.ActionListener() {
+        btnLogin.setBackground(new java.awt.Color(0, 255, 255));
+        btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        btnLogin.setForeground(new java.awt.Color(255, 0, 0));
+        btnLogin.setText("LOGIN");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_loginActionPerformed(evt);
+                btnLoginActionPerformed(evt);
             }
         });
 
@@ -60,7 +61,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(userID)
                     .addComponent(password, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pass)
-                    .addComponent(button_login, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE))
+                    .addComponent(btnLogin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -77,8 +78,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(button_login, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/nen_login1.jpg"))); // NOI18N
@@ -124,7 +125,7 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_loginActionPerformed
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String username = userID.getText().trim();
         String passwordInput = new String(pass.getPassword());
 
@@ -147,7 +148,7 @@ public class MainFrame extends javax.swing.JFrame {
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
-                JOptionPane.showMessageDialog(this, "Đăng nhập thành công!");
+//                JOptionPane.showMessageDialog(this, "Đăng nhập thành công!");
                 // Mở home
                 new Home(username).setVisible(true);
                 // Đóng cửa sổ login hiện tại
@@ -161,7 +162,7 @@ public class MainFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Lỗi khi kiểm tra đăng nhập!");
         }
 
-    }//GEN-LAST:event_button_loginActionPerformed
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -172,7 +173,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton button_login;
+    private javax.swing.JButton btnLogin;
     private javax.swing.JLabel id;
     private javax.swing.JLabel img;
     private javax.swing.JPanel jPanel1;
