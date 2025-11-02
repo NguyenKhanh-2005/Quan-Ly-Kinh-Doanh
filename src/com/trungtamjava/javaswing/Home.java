@@ -15,7 +15,11 @@ public class Home extends javax.swing.JFrame {
             Statement stt=conn.createStatement();
             java.sql.ResultSet res=stt.executeQuery(sql);
             while(res.next()){
-                
+                dataGiaoDichCaNhan.add(new giaoDich(res.getString("moTa"),
+                        res.getString("loai"),
+                        res.getDate("ngay").toString(),
+                        res.getDouble("soTien"),
+                        res.getString("ghiChu")));
             }
             
         }catch(Exception e){
