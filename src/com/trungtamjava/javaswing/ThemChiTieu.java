@@ -40,6 +40,9 @@ public class ThemChiTieu extends javax.swing.JFrame {
         ghiChutxt.setText(ghiChu);
 
     }
+    public ThemChiTieu(FrameChiTietDuAnKinhDoanh parent){
+        
+    }
     public void capNhatData(){
         moTa=moTatxt.getText();
         Loai=loaitxt.getSelectedItem().toString();
