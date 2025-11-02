@@ -13,7 +13,6 @@ public class DatabaseConnection {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("✅ Kết nối MySQL thành công!");
             return conn;
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("❌ Kết nối thất bại!");

@@ -132,13 +132,11 @@ public class MainFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
             return;
         }
-
         try (java.sql.Connection conn = DatabaseConnection.getConnection()) {
             if (conn == null) {
                 JOptionPane.showMessageDialog(this, "Không thể kết nối đến cơ sở dữ liệu!");
                 return;
             }
-
             String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setString(1, username);
@@ -160,7 +158,6 @@ public class MainFrame extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Lỗi khi kiểm tra đăng nhập!");
         }
-
     }//GEN-LAST:event_btnLoginActionPerformed
 
     public static void main(String args[]) {

@@ -19,8 +19,9 @@ public class ThemChiTieu extends javax.swing.JFrame {
     private PanelGiaoDichCaNhan parent;
     public ThemChiTieu(PanelGiaoDichCaNhan parent) {
         initComponents();
-        this.parent=parent;
+        getRootPane().setDefaultButton(btnOK);
         setLocationRelativeTo(null);
+        this.parent=parent;
         check=1;
         LocalDate today = LocalDate.now();
         ngaytxt.setText(today.format(fmt));
@@ -38,7 +39,6 @@ public class ThemChiTieu extends javax.swing.JFrame {
         soTientxt.setText(String.valueOf(soTien));
         ngaytxt.setText(LocalDate.parse(ngay,fmt_out).format(fmt));
         ghiChutxt.setText(ghiChu);
-
     }
     public ThemChiTieu(FrameChiTietDuAnKinhDoanh parent){
         
@@ -217,6 +217,7 @@ public class ThemChiTieu extends javax.swing.JFrame {
                 capNhatData();
                 if (parent != null) {
                     parent.capNhatBang(Loai, moTa, soTien, ngay.toString(), ghiChu);
+                    
                 }
             }catch(Exception e){
                 System.out.println("loi");

@@ -27,14 +27,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
-              <Component id="jToggleButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Component id="jTabbedPane4" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace pref="49" max="32767" attributes="0"/>
-              <Component id="jButton1" linkSize="1" min="-2" pref="120" max="-2" attributes="0"/>
+              <Component id="btnThemDuAn" linkSize="1" min="-2" pref="120" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButton2" linkSize="1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -42,7 +42,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButton4" linkSize="1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButton5" linkSize="1" min="-2" max="-2" attributes="0"/>
+              <Component id="btnXemChiTiet" linkSize="1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -52,15 +52,15 @@
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jTabbedPane4" min="-2" max="-2" attributes="0"/>
-                  <Component id="jToggleButton1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton1" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnThemDuAn" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton2" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton3" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton4" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton5" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnXemChiTiet" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" pref="518" max="32767" attributes="0"/>
@@ -73,14 +73,6 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
     </Container>
-    <Component class="javax.swing.JToggleButton" name="jToggleButton1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="quay l&#x1ea1;i"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton1ActionPerformed"/>
-      </Events>
-    </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -147,10 +139,13 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnThemDuAn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Th&#xea;m d&#x1ef1; &#xe1;n"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThemDuAnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>
@@ -167,9 +162,17 @@
         <Property name="text" type="java.lang.String" value="S&#x1eed;a d&#x1ef1; &#xe1;n"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton5">
+    <Component class="javax.swing.JButton" name="btnXemChiTiet">
       <Properties>
         <Property name="text" type="java.lang.String" value="Xem chi ti&#x1ebf;t d&#x1ef1; &#xe1;n"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXemChiTietActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="quay l&#x1ea1;i"/>
       </Properties>
     </Component>
   </SubComponents>
