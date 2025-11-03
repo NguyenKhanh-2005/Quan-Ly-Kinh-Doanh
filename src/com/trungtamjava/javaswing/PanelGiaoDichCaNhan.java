@@ -2,14 +2,16 @@
 package com.trungtamjava.javaswing;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 
 public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PanelGiaoDichCaNhan.class.getName());
-    Home home;
+    ArrayList<giaoDich> data;
     public PanelGiaoDichCaNhan(Home a) {
-        this.home=a;
+        data=a.dataGiaoDichCaNhan;
         initComponents();
+//        capNhatAllbang();
 //        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
     }
@@ -209,31 +211,31 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
     }//GEN-LAST:event_btnThemGiaoDichActionPerformed
     public void capNhatDong(int row, String loai, String moTa, double soTien, String ngay, String ghiChu) {
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
-
         model.setValueAt(loai, row, 0);
         model.setValueAt(moTa, row, 1);
         model.setValueAt(soTien, row, 2);
         model.setValueAt(ngay, row, 3);
         model.setValueAt(ghiChu, row, 4);
-
         // cập nhật lại trong danh sách Home
 //        if (home != null && row < home.dataGiaoDichCaNhan.size()) {
 //            giaoDich gd = home.dataGiaoDichCaNhan.get(row);
 //            gd.loai=loai;
 //            gd.moTa=moTa;
 //            gd.soTien=soTien;
-////            gd.ngay=LocalDate.parse(ngay);
+//            gd.ngay=LocalDate.parse(ngay);
 //            gd.ghiChu=ghiChu;
 //        }
     }
-
-    /**
-     * @param args the command line arguments
-     */
+    public void capNhatAllbang(){
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+        data.forEach(i->{
+            model.addRow(new Object[]{i.getLoai(), i.getMoTa(), i.soTien, i.getNgay(), i.getGhiChu()});
+        });
+    }
     public void capNhatBang(String loai, String moTa, double soTien, String ngay, String ghiChu) {
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
         model.addRow(new Object[]{loai, moTa, soTien, ngay, ghiChu});
-        home.dataGiaoDichCaNhan.add(new giaoDich(moTa, loai,ngay, soTien,ghiChu));
+        data.add(new giaoDich(moTa, loai,ngay, soTien,ghiChu));
     }
     public void xoaDongDangChon() {
         int row = jTable1.getSelectedRow(); // Lấy dòng đang chọn

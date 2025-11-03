@@ -2,13 +2,32 @@ package com.trungtamjava.javaswing;
 
 import javax.swing.*;
 import java.util.*;
+import java.sql.*;
 public class Home extends javax.swing.JFrame {
     private String name;
     ArrayList<giaoDich> dataGiaoDichCaNhan;
     public Home(String username) {
         name=username;
         initComponents();
+
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); //  full màn hình
+
+        try(java.sql.Connection conn= DatabaseConnection.getConnection()){
+            String sql =String.format("select * from giaodich\n"
+                    + "where userName='%s' and duAn='cá nhân'",name);
+            Statement stt=conn.createStatement();
+            java.sql.ResultSet res=stt.executeQuery(sql);
+            while(res.next()){
+                dataGiaoDichCaNhan.add(new giaoDich(res.getString("moTa"),
+                        res.getString("loai"),
+                        res.getDate("ngay").toString(),
+                        res.getDouble("soTien"),
+                        res.getString("ghiChu")));
+            }
+            
+        }catch(Exception e){
+        System.out.println("wth");}
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH); // 🔥 full màn hình
         this.setLocationRelativeTo(null);
     }
 

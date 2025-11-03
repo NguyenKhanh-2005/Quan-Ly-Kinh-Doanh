@@ -7,13 +7,13 @@ class GiaoDichChiTieu extends giaoDich {
 
     public GiaoDichChiTieu(String moTa,String loai,String ngay,double soTien,String ghiChu) {
         super(moTa,loai,ngay, soTien, ghiChu);
-        soTien=tinhSoTienThuc();
+        this.soTien=tinhSoTienThuc();
         this.loaiChi = loaiChi;
     }
 
     @Override
     public double tinhSoTienThuc() {
-        return -soTien; // vì là chi tiêu → trừ tiền
+        return -super.soTien; // vì là chi tiêu → trừ tiền
     }
 
 }
@@ -50,6 +50,28 @@ public class giaoDich {
         this.soTien=soTien;
         this.ghiChu=ghiChu;
     }
+
+    public String getMoTa() {
+        return moTa;
+    }
+
+    public String getLoai() {
+        return loai;
+    }
+
+    public LocalDate getNgay() {
+        return ngay;
+    }
+
+    public double getSoTien() {
+        return soTien;
+    }
+
+    public String getGhiChu() {
+        return ghiChu;
+    }
+    
+    
     
     public double tinhSoTienThuc(){
         return soTien;
