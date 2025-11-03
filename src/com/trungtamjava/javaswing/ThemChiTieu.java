@@ -3,6 +3,7 @@ package com.trungtamjava.javaswing;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class ThemChiTieu extends javax.swing.JFrame {
     
@@ -17,11 +18,13 @@ public class ThemChiTieu extends javax.swing.JFrame {
     DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     DateTimeFormatter fmt_out=DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private PanelGiaoDichCaNhan parent;
+    private ArrayList<giaoDich> data;
     public ThemChiTieu(PanelGiaoDichCaNhan parent) {
         initComponents();
         getRootPane().setDefaultButton(btnOK);
         setLocationRelativeTo(null);
         this.parent=parent;
+        this.data=parent.data;
         check=1;
         LocalDate today = LocalDate.now();
         ngaytxt.setText(today.format(fmt));
@@ -29,7 +32,7 @@ public class ThemChiTieu extends javax.swing.JFrame {
     }
     public ThemChiTieu(PanelGiaoDichCaNhan parent, String loai, String moTa, double soTien, String ngay, String ghiChu, int rowIndex) {
         initComponents();
-        this.parent = parent;
+        this.data = parent.data;
         setLocationRelativeTo(null);
         check = 2;
 
@@ -215,10 +218,7 @@ public class ThemChiTieu extends javax.swing.JFrame {
         if(check==1){
             try{
                 capNhatData();
-                if (parent != null) {
-                    parent.capNhatBang(Loai, moTa, soTien, ngay.toString(), ghiChu);
-                    
-                }
+                parent.capNhatBang(Loai, moTa, soTien, ngay.toString(), ghiChu);
             }catch(Exception e){
                 System.out.println("loi");
             }

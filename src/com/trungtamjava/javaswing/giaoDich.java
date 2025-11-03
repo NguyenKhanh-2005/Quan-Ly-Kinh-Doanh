@@ -50,7 +50,9 @@ public class giaoDich {
         this.soTien=soTien;
         this.ghiChu=ghiChu;
     }
-
+    public String toString(){
+        return String.format("%s %s %s %f %s",moTa,loai,ngay.toString(),soTien,ghiChu);
+    }
     public String getMoTa() {
         return moTa;
     }

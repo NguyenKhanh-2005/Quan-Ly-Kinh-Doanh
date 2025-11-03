@@ -145,8 +145,6 @@ public class MainFrame extends javax.swing.JFrame {
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
-//                JOptionPane.showMessageDialog(this, "Đăng nhập thành công!");
-                // Mở home
                 new Home(username).setVisible(true);
                 // Đóng cửa sổ login hiện tại
                 this.dispose();

@@ -8,10 +8,16 @@ import javax.swing.JFrame;
 public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PanelGiaoDichCaNhan.class.getName());
     ArrayList<giaoDich> data;
+    java.sql.Connection conn;
+    java.sql.Statement stt;
     public PanelGiaoDichCaNhan(Home a) {
         data=a.dataGiaoDichCaNhan;
         initComponents();
-//        capNhatAllbang();
+        try{
+            conn=DatabaseConnection.getConnection();
+            stt=conn.createStatement();
+        }catch(Exception e){}
+        capNhatAllbang();
 //        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
     }
@@ -34,12 +40,12 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jFrame1 = new javax.swing.JFrame();
         jFrame2 = new javax.swing.JFrame();
-        jToggleButton1 = new javax.swing.JToggleButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btnXuaGiaoDich = new javax.swing.JButton();
         btnXoaGiaoDich = new javax.swing.JButton();
         btnThemGiaoDich = new javax.swing.JButton();
+        btnQuayLai = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
@@ -87,8 +93,6 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("giao dịch cá nhân");
-
-        jToggleButton1.setText("quay lại");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -143,22 +147,29 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
             }
         });
 
+        btnQuayLai.setText("quay lại");
+        btnQuayLai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuayLaiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane2)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToggleButton1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(183, 183, 183)
-                        .addComponent(btnThemGiaoDich, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnXuaGiaoDich)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnXoaGiaoDich)))
+                .addGap(183, 183, 183)
+                .addComponent(btnThemGiaoDich, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnXuaGiaoDich)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnXoaGiaoDich)
                 .addContainerGap(241, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(btnQuayLai)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnXoaGiaoDich, btnXuaGiaoDich});
@@ -166,7 +177,7 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToggleButton1)
+                .addComponent(btnQuayLai)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnXuaGiaoDich)
@@ -194,7 +205,6 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
         }
 
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
-
         String loai = (String) model.getValueAt(row, 0);
         String moTa = (String) model.getValueAt(row, 1);
         double soTien = (double) model.getValueAt(row, 2);
@@ -209,6 +219,10 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
     private void btnThemGiaoDichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemGiaoDichActionPerformed
         new ThemChiTieu(this).setVisible(true);
     }//GEN-LAST:event_btnThemGiaoDichActionPerformed
+
+    private void btnQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuayLaiActionPerformed
+        
+    }//GEN-LAST:event_btnQuayLaiActionPerformed
     public void capNhatDong(int row, String loai, String moTa, double soTien, String ngay, String ghiChu) {
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
         model.setValueAt(loai, row, 0);
@@ -241,10 +255,16 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
         int row = jTable1.getSelectedRow(); // Lấy dòng đang chọn
         if (row == -1) {
             javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một giao dịch để xoá!");
+            
             return;
         }
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+        data.forEach(i->{
+            System.out.println(i);
+        });
         model.removeRow(row);
+        data.remove(row);
+
     }
 
 //    public static void main(String args[]) {
@@ -262,6 +282,7 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnQuayLai;
     private javax.swing.JButton btnThemGiaoDich;
     private javax.swing.JButton btnXoaGiaoDich;
     private javax.swing.JButton btnXuaGiaoDich;
@@ -281,6 +302,5 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }

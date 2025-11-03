@@ -6,23 +6,30 @@ import java.sql.*;
 public class Home extends javax.swing.JFrame {
     private String name;
     ArrayList<giaoDich> dataGiaoDichCaNhan;
+    
     public Home(String username) {
         name=username;
         initComponents();
-
+        dataGiaoDichCaNhan=new ArrayList<>();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); //  full màn hình
 
         try(java.sql.Connection conn= DatabaseConnection.getConnection()){
-            String sql =String.format("select * from giaodich\n"
-                    + "where userName='%s' and duAn='cá nhân'",name);
+            String sql =String.format("select * from giao_dich\n"
+                    + "where userName='%s' and duAn is null",name);
             Statement stt=conn.createStatement();
             java.sql.ResultSet res=stt.executeQuery(sql);
             while(res.next()){
                 dataGiaoDichCaNhan.add(new giaoDich(res.getString("moTa"),
                         res.getString("loai"),
-                        res.getDate("ngay").toString(),
+                        res.getString("ngay"),
                         res.getDouble("soTien"),
                         res.getString("ghiChu")));
+//                System.out.print(res.getString("ngay"));
+//                System.out.print(res.getString("moTa"));
+//                System.out.print(res.getString("loai"));
+//                System.out.print(res.getDouble("soTien"));
+//                System.out.print(res.getString("ghiChu"));
+                
             }
             
         }catch(Exception e){
