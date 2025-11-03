@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class ThemChiTieu extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ThemChiTieu.class.getName());
-    private PanelGiaoDichCaNhan parentPanel;
     String moTa,Loai,ghiChu;
     double soTien;
     private int rowPick;
@@ -16,7 +15,6 @@ public class ThemChiTieu extends javax.swing.JFrame {
     int check;
     private java.beans.PropertyChangeSupport pcs = new java.beans.PropertyChangeSupport(this);
     DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    DateTimeFormatter fmt_out=DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private PanelGiaoDichCaNhan parent;
     private ArrayList<giaoDich> data;
     public ThemChiTieu(PanelGiaoDichCaNhan parent) {
@@ -31,16 +29,19 @@ public class ThemChiTieu extends javax.swing.JFrame {
         moTa="";Loai="";ghiChu="";
     }
     public ThemChiTieu(PanelGiaoDichCaNhan parent, String loai, String moTa, double soTien, String ngay, String ghiChu, int rowIndex) {
+        //sửa giaoo dịch
         initComponents();
         this.data = parent.data;
+        this.parent=parent;
         setLocationRelativeTo(null);
         check = 2;
+        rowPick=rowIndex;
 
         // Set dữ liệu sẵn vào các ô nhập
         loaitxt.setSelectedItem(loai);
         moTatxt.setText(moTa);
         soTientxt.setText(String.valueOf(soTien));
-        ngaytxt.setText(LocalDate.parse(ngay,fmt_out).format(fmt));
+        ngaytxt.setText(ngay);
         ghiChutxt.setText(ghiChu);
     }
     public ThemChiTieu(FrameChiTietDuAnKinhDoanh parent){
@@ -52,6 +53,7 @@ public class ThemChiTieu extends javax.swing.JFrame {
         ghiChu=ghiChutxt.getText();
         soTien=Double.parseDouble(soTientxt.getText());
         ngay=LocalDate.parse(ngaytxt.getText(),fmt);
+//        System.out.println(ngay.format(fmt));
         
     }
     @SuppressWarnings("unchecked")
@@ -218,7 +220,7 @@ public class ThemChiTieu extends javax.swing.JFrame {
         if(check==1){
             try{
                 capNhatData();
-                parent.capNhatBang(Loai, moTa, soTien, ngay.toString(), ghiChu);
+                parent.capNhatBang(Loai, moTa, soTien, ngay.format(fmt), ghiChu);
             }catch(Exception e){
                 System.out.println("loi");
             }
@@ -227,7 +229,7 @@ public class ThemChiTieu extends javax.swing.JFrame {
         else if(check==2){
             try {
                 capNhatData();
-                parent.capNhatDong(rowPick, Loai, moTa, soTien, ngay.format(fmt_out), ghiChu);
+                parent.capNhatDong(rowPick, Loai, moTa, soTien, ngay.format(fmt), ghiChu);
             } catch (Exception e) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Dữ liệu không hợp lệ!");
             }

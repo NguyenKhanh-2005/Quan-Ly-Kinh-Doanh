@@ -69,7 +69,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="buttonChiTieu" alignment="1" max="32767" attributes="0"/>
+              <Component id="buttonChiTieuCaNhan" alignment="1" max="32767" attributes="0"/>
               <Component id="buttonTongquan" alignment="0" max="32767" attributes="0"/>
               <Component id="buttonDuAnKinhDoanh" alignment="0" max="32767" attributes="0"/>
               <Component id="buttonThongTin" alignment="0" pref="283" max="32767" attributes="0"/>
@@ -81,7 +81,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonDuAnKinhDoanh" min="-2" pref="52" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="buttonChiTieu" min="-2" pref="58" max="-2" attributes="0"/>
+                  <Component id="buttonChiTieuCaNhan" min="-2" pref="58" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonTongquan" min="-2" pref="53" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -106,7 +106,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDuAnKinhDoanhActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="buttonChiTieu">
+        <Component class="javax.swing.JButton" name="buttonChiTieuCaNhan">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="99" type="rgb"/>
@@ -117,7 +117,7 @@
             <Property name="text" type="java.lang.String" value="Chi ti&#xea;u c&#xe1; nh&#xe2;n"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChiTieuActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChiTieuCaNhanActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonTongquan">

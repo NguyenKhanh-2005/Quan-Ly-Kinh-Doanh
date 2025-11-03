@@ -2,16 +2,22 @@
 package com.trungtamjava.javaswing;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 
 public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PanelGiaoDichCaNhan.class.getName());
     ArrayList<giaoDich> data;
+    String name;
     java.sql.Connection conn;
     java.sql.Statement stt;
-    public PanelGiaoDichCaNhan(Home a) {
+    public PanelGiaoDichCaNhan(Home a,String name) {
+        this.name=name;
         data=a.dataGiaoDichCaNhan;
+        data.forEach(i->{
+            System.out.println(i);
+        });
         initComponents();
         try{
             conn=DatabaseConnection.getConnection();
@@ -210,6 +216,7 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
         double soTien = (double) model.getValueAt(row, 2);
         String ngay = (String) model.getValueAt(row, 3);
         String ghiChu = (String) model.getValueAt(row, 4);
+//        System.out.println(ngay);
 
         // Mở form sửa có dữ liệu sẵn
         ThemChiTieu formSua = new ThemChiTieu(this, loai, moTa, soTien, ngay, ghiChu, row);
@@ -221,8 +228,33 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
     }//GEN-LAST:event_btnThemGiaoDichActionPerformed
 
     private void btnQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuayLaiActionPerformed
-        
+        capNhatSql();        
     }//GEN-LAST:event_btnQuayLaiActionPerformed
+        public void capNhatSql(){
+        String sql1=String.format("delete from giao_dich\n"
+        + "where userName='%s' and duAn is null;\n",name);
+        String sql2=String.format("insert into giao_dich(userName,loai,moTa,ngay,soTien,ghiChu)\n"
+        + "values\n",name);
+        for(int j=0;j<data.size();j++){
+            giaoDich i=data.get(j);
+            sql2+=String.format("('%s','%s','%s','%s',%f,'%s')",
+            name,
+            i.getLoai(),
+            i.getMoTa(),
+            i.getNgay(),
+            i.getSoTien(),
+            i.getGhiChu());
+            if(j<data.size()-1) sql2+=",\n";
+            else sql2+=";\n";
+        }
+        try(java.sql.Connection conn=DatabaseConnection.getConnection()){
+            java.sql.Statement stt=conn.createStatement();
+            stt.executeUpdate(sql1);
+            stt.executeUpdate(sql2);
+
+        }catch(Exception e){System.out.println("loi save");}
+    }
+    
     public void capNhatDong(int row, String loai, String moTa, double soTien, String ngay, String ghiChu) {
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
         model.setValueAt(loai, row, 0);
@@ -232,23 +264,24 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
         model.setValueAt(ghiChu, row, 4);
         // cập nhật lại trong danh sách Home
 //        if (home != null && row < home.dataGiaoDichCaNhan.size()) {
-//            giaoDich gd = home.dataGiaoDichCaNhan.get(row);
-//            gd.loai=loai;
-//            gd.moTa=moTa;
-//            gd.soTien=soTien;
-//            gd.ngay=LocalDate.parse(ngay);
-//            gd.ghiChu=ghiChu;
+        giaoDich gd = data.get(row);
+        gd.setMoTa(moTa);
+        gd.setGhiChu(ghiChu);
+        gd.setLoai(loai);
+        gd.setSoTien(soTien);
+        gd.setNgay(LocalDate.parse(ngay,DateTimeFormatter.ofPattern("dd-MM-yyyy")));
 //        }
     }
     public void capNhatAllbang(){
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
         data.forEach(i->{
-            model.addRow(new Object[]{i.getLoai(), i.getMoTa(), i.soTien, i.getNgay(), i.getGhiChu()});
+            model.addRow(new Object[]{i.getLoai(), i.getMoTa(), i.soTien, i.getNgay().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), i.getGhiChu()});
         });
     }
     public void capNhatBang(String loai, String moTa, double soTien, String ngay, String ghiChu) {
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
         model.addRow(new Object[]{loai, moTa, soTien, ngay, ghiChu});
+        System.out.println(ngay);
         data.add(new giaoDich(moTa, loai,ngay, soTien,ghiChu));
     }
     public void xoaDongDangChon() {

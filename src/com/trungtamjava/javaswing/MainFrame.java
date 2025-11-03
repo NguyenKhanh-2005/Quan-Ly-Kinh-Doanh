@@ -157,7 +157,8 @@ public class MainFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Lỗi khi kiểm tra đăng nhập!");
         }
     }//GEN-LAST:event_btnLoginActionPerformed
-
+    
+    
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

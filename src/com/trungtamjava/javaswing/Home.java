@@ -3,10 +3,13 @@ package com.trungtamjava.javaswing;
 import javax.swing.*;
 import java.util.*;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 public class Home extends javax.swing.JFrame {
     private String name;
     ArrayList<giaoDich> dataGiaoDichCaNhan;
-    
+    DateTimeFormatter fmt_out=DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public Home(String username) {
         name=username;
         initComponents();
@@ -19,9 +22,11 @@ public class Home extends javax.swing.JFrame {
             Statement stt=conn.createStatement();
             java.sql.ResultSet res=stt.executeQuery(sql);
             while(res.next()){
+                String ngayTmp=LocalDate.parse(res.getString("ngay"),fmt_out).format(fmt);
+                System.out.println(ngayTmp);
                 dataGiaoDichCaNhan.add(new giaoDich(res.getString("moTa"),
                         res.getString("loai"),
-                        res.getString("ngay"),
+                        ngayTmp,
                         res.getDouble("soTien"),
                         res.getString("ghiChu")));
 //                System.out.print(res.getString("ngay"));
@@ -44,7 +49,7 @@ public class Home extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         buttonDuAnKinhDoanh = new javax.swing.JButton();
-        buttonChiTieu = new javax.swing.JButton();
+        buttonChiTieuCaNhan = new javax.swing.JButton();
         buttonTongquan = new javax.swing.JButton();
         buttonThongTin = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -68,12 +73,12 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        buttonChiTieu.setBackground(new java.awt.Color(153, 255, 255));
-        buttonChiTieu.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        buttonChiTieu.setText("Chi tiêu cá nhân");
-        buttonChiTieu.addActionListener(new java.awt.event.ActionListener() {
+        buttonChiTieuCaNhan.setBackground(new java.awt.Color(153, 255, 255));
+        buttonChiTieuCaNhan.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        buttonChiTieuCaNhan.setText("Chi tiêu cá nhân");
+        buttonChiTieuCaNhan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonChiTieuActionPerformed(evt);
+                buttonChiTieuCaNhanActionPerformed(evt);
             }
         });
 
@@ -99,7 +104,7 @@ public class Home extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(buttonChiTieu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(buttonChiTieuCaNhan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(buttonTongquan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(buttonDuAnKinhDoanh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(buttonThongTin, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
@@ -110,7 +115,7 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(buttonDuAnKinhDoanh, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonChiTieu, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonChiTieuCaNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonTongquan, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -237,12 +242,14 @@ public class Home extends javax.swing.JFrame {
         new PanelDuAnKinhDoanh(this).setVisible(true);
     }//GEN-LAST:event_buttonDuAnKinhDoanhActionPerformed
 
-    private void buttonChiTieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChiTieuActionPerformed
-           new PanelGiaoDichCaNhan(this).setVisible(true);
-    }//GEN-LAST:event_buttonChiTieuActionPerformed
+    private void buttonChiTieuCaNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChiTieuCaNhanActionPerformed
+           new PanelGiaoDichCaNhan(this,name).setVisible(true);
+    }//GEN-LAST:event_buttonChiTieuCaNhanActionPerformed
+    
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonChiTieu;
+    private javax.swing.JButton buttonChiTieuCaNhan;
     private javax.swing.JButton buttonDuAnKinhDoanh;
     private javax.swing.JButton buttonThongTin;
     private javax.swing.JButton buttonTongquan;
