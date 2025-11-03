@@ -9,11 +9,13 @@ import javax.swing.table.DefaultTableModel;
 public class Home extends javax.swing.JFrame {
     private String name;
     ArrayList<giaoDich> dataGiaoDichCaNhan;
+    ArrayList<duAn> dataDuAn;
     DateTimeFormatter fmt_out=DateTimeFormatter.ofPattern("yyyy-MM-dd");
     DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public Home(String username) {
         name=username;
         initComponents();
+        dataDuAn=new ArrayList<>();
         dataGiaoDichCaNhan=new ArrayList<>();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); //  full màn hình
         try(java.sql.Connection conn= DatabaseConnection.getConnection()){
@@ -33,6 +35,21 @@ public class Home extends javax.swing.JFrame {
 //                System.out.print(res.getString("loai"));
 //                System.out.print(res.getDouble("soTien"));
 //                System.out.print(res.getString("ghiChu")); 
+            }
+            //Lấy dự án 
+            String sql_getDuAn=String.format("select * from du_an_kd\n"
+                    + "where userName='%s'",name);
+            stt.executeQuery(sql_getDuAn);
+            while(res.next()){
+                String tenDuAn=res.getString("tenDuAn");
+                dataDuAn.add(new duAn(tenDuAn,
+                        res.getDouble("vonDauTu"),
+                        res.getDouble("chiPhi"),
+                        res.getDouble("mucTieuLoiNhuan")));
+                String sql_getGiaoDichDuAn=String.format("select * from giao_dich\n"
+                        + "where userName='%s' and duAn='%s'",name,tenDuAn);
+//                java.sql.ResultSet res2=stt.executeQuery(sql_getGiaoDichDuAn);
+                
             }
         }catch(Exception e){
         System.out.println("wth");}
@@ -240,7 +257,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonDuAnKinhDoanhActionPerformed
 
     private void buttonChiTieuCaNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChiTieuCaNhanActionPerformed
-           new PanelGiaoDichCaNhan(this,name).setVisible(true);
+        new PanelGiaoDichCaNhan(this,name).setVisible(true);
     }//GEN-LAST:event_buttonChiTieuCaNhanActionPerformed
     
     public void capNhanBangDGGanday(){

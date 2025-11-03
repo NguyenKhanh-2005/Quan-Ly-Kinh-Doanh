@@ -222,7 +222,7 @@ public class ThemChiTieu extends javax.swing.JFrame {
                 capNhatData();
                 parent.capNhatBang(Loai, moTa, soTien, ngay.format(fmt), ghiChu);
             }catch(Exception e){
-                System.out.println("loi");
+               javax.swing.JOptionPane.showMessageDialog(this, "dữ liệu không hợp lệ");
             }
             dispose();
         }
