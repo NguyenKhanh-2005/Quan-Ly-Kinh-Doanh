@@ -5,6 +5,7 @@ import java.util.*;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javax.swing.table.DefaultTableModel;
 public class Home extends javax.swing.JFrame {
     private String name;
     ArrayList<giaoDich> dataGiaoDichCaNhan;
@@ -15,7 +16,6 @@ public class Home extends javax.swing.JFrame {
         initComponents();
         dataGiaoDichCaNhan=new ArrayList<>();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); //  full màn hình
-
         try(java.sql.Connection conn= DatabaseConnection.getConnection()){
             String sql =String.format("select * from giao_dich\n"
                     + "where userName='%s' and duAn is null",name);
@@ -23,7 +23,6 @@ public class Home extends javax.swing.JFrame {
             java.sql.ResultSet res=stt.executeQuery(sql);
             while(res.next()){
                 String ngayTmp=LocalDate.parse(res.getString("ngay"),fmt_out).format(fmt);
-                System.out.println(ngayTmp);
                 dataGiaoDichCaNhan.add(new giaoDich(res.getString("moTa"),
                         res.getString("loai"),
                         ngayTmp,
@@ -33,14 +32,12 @@ public class Home extends javax.swing.JFrame {
 //                System.out.print(res.getString("moTa"));
 //                System.out.print(res.getString("loai"));
 //                System.out.print(res.getDouble("soTien"));
-//                System.out.print(res.getString("ghiChu"));
-                
+//                System.out.print(res.getString("ghiChu")); 
             }
-            
         }catch(Exception e){
         System.out.println("wth");}
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH); // 🔥 full màn hình
         this.setLocationRelativeTo(null);
+        capNhanBangDGGanday();
     }
 
     @SuppressWarnings("unchecked")
@@ -54,7 +51,7 @@ public class Home extends javax.swing.JFrame {
         buttonThongTin = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        gdGanDayTable = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         timKiem = new javax.swing.JTextField();
@@ -123,12 +120,12 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        gdGanDayTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Loại", "Mô tả", "Số tiền", "Ngày", "Danh mục"
+                "Loại", "Mô tả", "Số tiền", "Ngày", "Ghi chú"
             }
         ) {
             Class[] types = new Class [] {
@@ -139,7 +136,7 @@ public class Home extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(gdGanDayTable);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Tìm kiếm:");
@@ -246,13 +243,31 @@ public class Home extends javax.swing.JFrame {
            new PanelGiaoDichCaNhan(this,name).setVisible(true);
     }//GEN-LAST:event_buttonChiTieuCaNhanActionPerformed
     
-
+    public void capNhanBangDGGanday(){
+        try(java.sql.Connection conn=DatabaseConnection.getConnection()){
+            java.sql.Statement stt=conn.createStatement();
+            String sql=("select * from giao_dich\n"
+                    + "order by ngay desc\n"
+                    + "limit 50;");
+            java.sql.ResultSet res=stt.executeQuery(sql);
+            DefaultTableModel model = (DefaultTableModel) gdGanDayTable.getModel();
+            model.setRowCount(0);
+            while(res.next()){
+                model.addRow(new Object[]{
+                    res.getString("loai"),
+                    res.getString("moTa"),
+                    res.getDate("ngay").toLocalDate().format(fmt),res.getDouble("soTien"),
+                    res.getString("ghiChu")});
+            }
+        }catch(Exception e){System.out.println("wth3");}
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChiTieuCaNhan;
     private javax.swing.JButton buttonDuAnKinhDoanh;
     private javax.swing.JButton buttonThongTin;
     private javax.swing.JButton buttonTongquan;
+    private javax.swing.JTable gdGanDayTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -260,7 +275,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JMenu menuDangxuat;
     private javax.swing.JTextField timKiem;
     // End of variables declaration//GEN-END:variables
