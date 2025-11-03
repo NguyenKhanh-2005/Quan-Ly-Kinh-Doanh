@@ -31,6 +31,7 @@ public class ThemChiTieu extends javax.swing.JFrame {
     public ThemChiTieu(PanelGiaoDichCaNhan parent, String loai, String moTa, double soTien, String ngay, String ghiChu, int rowIndex) {
         //sửa giaoo dịch
         initComponents();
+        getRootPane().setDefaultButton(btnOK);
         this.data = parent.data;
         this.parent=parent;
         setLocationRelativeTo(null);
@@ -53,7 +54,6 @@ public class ThemChiTieu extends javax.swing.JFrame {
         ghiChu=ghiChutxt.getText();
         soTien=Double.parseDouble(soTientxt.getText());
         ngay=LocalDate.parse(ngaytxt.getText(),fmt);
-//        System.out.println(ngay.format(fmt));
         
     }
     @SuppressWarnings("unchecked")
@@ -213,7 +213,7 @@ public class ThemChiTieu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void soTientxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soTientxtActionPerformed
-        // TODO add your handling code here:
+        btnOK.doClick();
     }//GEN-LAST:event_soTientxtActionPerformed
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed

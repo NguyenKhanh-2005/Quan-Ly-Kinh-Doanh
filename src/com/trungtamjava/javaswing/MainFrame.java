@@ -8,6 +8,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         super("Quản lý tài chính");
         initComponents();
+        setLocationRelativeTo(null);
         getRootPane().setDefaultButton(btnLogin);
     }
 
