@@ -8,7 +8,7 @@ public class Home extends javax.swing.JFrame {
     public Home(String username) {
         name=username;
         initComponents();
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH); // 🔥 full màn hình
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH); //  full màn hình
         this.setLocationRelativeTo(null);
     }
 
