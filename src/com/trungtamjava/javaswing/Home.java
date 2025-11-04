@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.table.DefaultTableModel;
 public class Home extends javax.swing.JFrame {
-    private String name;
+    String name;
     ArrayList<giaoDich> dataGiaoDichCaNhan;
     ArrayList<duAn> dataDuAn;
     DateTimeFormatter fmt_out=DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -249,8 +249,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonTongquanActionPerformed
 
     private void buttonThongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonThongTinActionPerformed
-        // TODO add your handling code here:
-        
+        new FrameThongTinCaNhan(this).setVisible(true);
     }//GEN-LAST:event_buttonThongTinActionPerformed
 
     private void menuDangxuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuDangxuatMouseClicked
@@ -296,6 +295,7 @@ public class Home extends javax.swing.JFrame {
             }
         }catch(Exception e){System.out.println("wth3");}
     }
+    public String getName(){return this.name;}
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChiTieuCaNhan;

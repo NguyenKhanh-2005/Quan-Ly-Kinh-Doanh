@@ -9,7 +9,7 @@ import java.sql.*;
 import javax.imageio.ImageIO;
 
 public class MainFrame extends javax.swing.JFrame {
-
+    String userName;
     public MainFrame() {
         super("Quản lý tài chính");
         initComponents();
