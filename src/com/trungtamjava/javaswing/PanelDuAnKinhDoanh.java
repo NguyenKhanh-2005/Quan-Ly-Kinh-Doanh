@@ -4,6 +4,10 @@
  */
 package com.trungtamjava.javaswing;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ACER
@@ -11,10 +15,11 @@ package com.trungtamjava.javaswing;
 public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PanelDuAnKinhDoanh.class.getName());
-    Home root;
+    ArrayList<duAn> data;
     public PanelDuAnKinhDoanh(Home a) {
-        this.root=a;
+        data=a.dataDuAn;
         initComponents();
+        capNhanAllBang();
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -94,7 +99,6 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton1)
                 .addGap(35, 35, 35)
@@ -112,6 +116,10 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnXemChiTiet)
                 .addGap(45, 45, 45))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnThemDuAn, btnXemChiTiet, jButton2, jButton3, jButton4});
@@ -130,7 +138,8 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
                     .addComponent(jButton4)
                     .addComponent(btnXemChiTiet))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnThemDuAn, btnXemChiTiet, jButton2, jButton3, jButton4});
@@ -146,15 +155,38 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
     private void btnXemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemChiTietActionPerformed
         int row=bangDuAn.getSelectedRow();
         if(row==-1){
-            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một giao dịch để sửa!");
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một dự án!");
             return;
         }
         else{
-           new frameThemDuAn(this).setVisible(true);
+           new FrameChiTietDuAnKinhDoanh(data.get(row).getDanhSachgiaoDich()).setVisible(true);
         }
     }//GEN-LAST:event_btnXemChiTietActionPerformed
-
     
+    public void capNhanAllBang(){
+        DefaultTableModel model=(DefaultTableModel) bangDuAn.getModel();
+        model.setRowCount(0);
+        data.forEach(i->{
+            double vonDauTu = i.getVonDauTu();
+            double loiNhuan = i.tinhLoiNhuan();
+            double tongSoSauLaiLo = vonDauTu + loiNhuan;
+            double tyLeLoiNhuan = vonDauTu > 0 ? (loiNhuan / vonDauTu) * 100 : 0;
+            
+            model.addRow(new Object[]{
+                    i.getTenDuAn(),
+                    (vonDauTu),
+                    (Math.abs(i.tinhTongChiPhi())),
+                    (i.tinhTongThuNhap()),
+                    (loiNhuan),
+                    (tongSoSauLaiLo),
+                    String.format("%.1f%%", tyLeLoiNhuan)
+            });
+//            model.addColumn(new Object[]{i.getTenDuAn(),i.getVonDauTu(),i.getMucTieuLoiNhuan(),});
+        });
+    }
+//    public void themDuAn(String ten,double von,double chiPhiDuKien,double mucTieuLoiNhuan){
+//        data.add(new duAn(ten,von,chiPhiDuKien,mucTieuLoiNhuan));
+//    }
 
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */

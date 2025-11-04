@@ -97,8 +97,13 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("giao dịch cá nhân");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -228,8 +233,14 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
     }//GEN-LAST:event_btnThemGiaoDichActionPerformed
 
     private void btnQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuayLaiActionPerformed
-        capNhatSql();        
+        capNhatSql();
+        dispose();
     }//GEN-LAST:event_btnQuayLaiActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        capNhatSql();
+        dispose();
+    }//GEN-LAST:event_formWindowClosing
         public void capNhatSql(){
         String sql1=String.format("delete from giao_dich\n"
         + "where userName='%s' and duAn is null;\n",name);

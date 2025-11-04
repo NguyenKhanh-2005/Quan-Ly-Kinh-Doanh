@@ -1,20 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.trungtamjava.javaswing;
 
-/**
- *
- * @author ACER
- */
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 public class frameThemDuAn extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(frameThemDuAn.class.getName());
-    
     PanelDuAnKinhDoanh root;
+    ArrayList<duAn> data;
+    private String tenDuAn;
+    private double vonDauTu,chiPhi,mucTieuLoiNhuan;
     public frameThemDuAn(PanelDuAnKinhDoanh a) {
         root=a;
+        this.data=a.data;
         initComponents();
         getRootPane().setDefaultButton(btnOK);
         setLocationRelativeTo(null);
@@ -54,18 +51,8 @@ public class frameThemDuAn extends javax.swing.JFrame {
         txtTenDuAn.setText("Tên");
 
         txtVonDauTu.setText("0");
-        txtVonDauTu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtVonDauTuActionPerformed(evt);
-            }
-        });
 
         txtChiPhiDuKien.setText("0");
-        txtChiPhiDuKien.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtChiPhiDuKienActionPerformed(evt);
-            }
-        });
 
         txtMucTieuLoiNhuan.setText("0");
 
@@ -139,41 +126,24 @@ public class frameThemDuAn extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtVonDauTuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtVonDauTuActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtVonDauTuActionPerformed
-
-    private void txtChiPhiDuKienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtChiPhiDuKienActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtChiPhiDuKienActionPerformed
-
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
-        
-    }//GEN-LAST:event_btnOKActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        try{
+            capNhatDuLieu();
+            data.add(new duAn(tenDuAn,vonDauTu,chiPhi,mucTieuLoiNhuan));
+            root.capNhanAllBang();
+            dispose();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập chính xác thông tin!");
         }
-        //</editor-fold>
+    }//GEN-LAST:event_btnOKActionPerformed
+    private void capNhatDuLieu(){
+        this.tenDuAn=txtTenDuAn.getText();
+        this.vonDauTu=Double.parseDouble(txtVonDauTu.getText());
+        this.chiPhi=Double.parseDouble(txtChiPhiDuKien.getText());
+        this.mucTieuLoiNhuan=Double.parseDouble(txtMucTieuLoiNhuan.getText());
+    }
+    public static void main(String args[]) {
 
-        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(() -> new frameThemDuAn().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

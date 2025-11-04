@@ -6,7 +6,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ThemChiTieu extends javax.swing.JFrame {
-    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ThemChiTieu.class.getName());
     String moTa,Loai,ghiChu;
     double soTien;
@@ -16,6 +15,7 @@ public class ThemChiTieu extends javax.swing.JFrame {
     private java.beans.PropertyChangeSupport pcs = new java.beans.PropertyChangeSupport(this);
     DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private PanelGiaoDichCaNhan parent;
+    LocalDate today = LocalDate.now();
     private ArrayList<giaoDich> data;
     public ThemChiTieu(PanelGiaoDichCaNhan parent) {
         initComponents();
@@ -24,10 +24,10 @@ public class ThemChiTieu extends javax.swing.JFrame {
         this.parent=parent;
         this.data=parent.data;
         check=1;
-        LocalDate today = LocalDate.now();
         ngaytxt.setText(today.format(fmt));
         moTa="";Loai="";ghiChu="";
     }
+    //sua giao dich
     public ThemChiTieu(PanelGiaoDichCaNhan parent, String loai, String moTa, double soTien, String ngay, String ghiChu, int rowIndex) {
         //sửa giaoo dịch
         initComponents();
@@ -45,9 +45,17 @@ public class ThemChiTieu extends javax.swing.JFrame {
         ngaytxt.setText(ngay);
         ghiChutxt.setText(ghiChu);
     }
+    private FrameChiTietDuAnKinhDoanh parent_duAn;
+    //them chi tieu du an
     public ThemChiTieu(FrameChiTietDuAnKinhDoanh parent){
-        
+        parent_duAn=parent;
+        initComponents();
+        setLocationRelativeTo(null);
+        getRootPane().setDefaultButton(btnOK);
+        check=3;
+        ngaytxt.setText(today.format(fmt));
     }
+    //lấy dữ liệu từ text field
     public void capNhatData(){
         moTa=moTatxt.getText();
         Loai=loaitxt.getSelectedItem().toString();
@@ -217,24 +225,32 @@ public class ThemChiTieu extends javax.swing.JFrame {
     }//GEN-LAST:event_soTientxtActionPerformed
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
-        if(check==1){
+        if(check==1){   //thêm giao dịch cá nhân
             try{
                 capNhatData();
                 parent.capNhatBang(Loai, moTa, soTien, ngay.format(fmt), ghiChu);
             }catch(Exception e){
-                System.out.println("loi");
+               javax.swing.JOptionPane.showMessageDialog(this, "dữ liệu không hợp lệ");
             }
-            dispose();
         }
-        else if(check==2){
+        else if(check==2){  //sửa giao dịch cá nhân
             try {
                 capNhatData();
                 parent.capNhatDong(rowPick, Loai, moTa, soTien, ngay.format(fmt), ghiChu);
             } catch (Exception e) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Dữ liệu không hợp lệ!");
             }
-            dispose();
         }
+        else if(check==3){  //thêm giao dịch dự án
+            try{
+                capNhatData();
+                
+                parent_duAn.capNhatAllBang();
+            }catch(Exception e){
+                
+            }
+        }
+        dispose();
     }//GEN-LAST:event_btnOKActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
