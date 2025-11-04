@@ -245,7 +245,7 @@ public class Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonTongquanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTongquanActionPerformed
-        // TODO add your handling code here:
+        new FrameTongQuan(this).setVisible(true);
     }//GEN-LAST:event_buttonTongquanActionPerformed
 
     private void buttonThongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonThongTinActionPerformed
