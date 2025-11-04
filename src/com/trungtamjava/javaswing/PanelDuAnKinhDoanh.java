@@ -99,7 +99,6 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton1)
                 .addGap(35, 35, 35)
@@ -117,6 +116,10 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnXemChiTiet)
                 .addGap(45, 45, 45))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnThemDuAn, btnXemChiTiet, jButton2, jButton3, jButton4});
@@ -135,7 +138,8 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
                     .addComponent(jButton4)
                     .addComponent(btnXemChiTiet))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnThemDuAn, btnXemChiTiet, jButton2, jButton3, jButton4});
@@ -155,7 +159,7 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
             return;
         }
         else{
-           new FrameChiTietDuAnKinhDoanh().setVisible(true);
+           new FrameChiTietDuAnKinhDoanh(data.get(row).getDanhSachgiaoDich()).setVisible(true);
         }
     }//GEN-LAST:event_btnXemChiTietActionPerformed
     

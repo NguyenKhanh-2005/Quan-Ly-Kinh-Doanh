@@ -1,10 +1,25 @@
 package com.trungtamjava.javaswing;
+
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 public class FrameChiTietDuAnKinhDoanh extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrameChiTietDuAnKinhDoanh.class.getName());
-
-    public FrameChiTietDuAnKinhDoanh() {
+    ArrayList<giaoDich> data;
+    public FrameChiTietDuAnKinhDoanh(ArrayList<giaoDich> a){
+        this.data=a;
         initComponents();
+        capNhatAllBang();
+        setLocationRelativeTo(null);
+    }
+    
+    public void capNhatAllBang(){
+        DefaultTableModel model=(DefaultTableModel)giaoDichTrongDuAn.getModel();
+        model.setRowCount(0);
+        data.forEach(i->{
+            model.addRow(new Object[]{i.getLoai(),i.getMoTa(),i.getSoTien(),i.getNgay(),i.getGhiChu()});
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -13,17 +28,17 @@ public class FrameChiTietDuAnKinhDoanh extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        giaoDichTrongDuAn = new javax.swing.JTable();
         btnThemGiaoDichDuAn = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         jButton1.setText("quay lại");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        giaoDichTrongDuAn.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -46,7 +61,7 @@ public class FrameChiTietDuAnKinhDoanh extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(giaoDichTrongDuAn);
 
         btnThemGiaoDichDuAn.setText("Thêm giao dịch");
         btnThemGiaoDichDuAn.addActionListener(new java.awt.event.ActionListener() {
@@ -118,10 +133,10 @@ public class FrameChiTietDuAnKinhDoanh extends javax.swing.JFrame {
 //    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThemGiaoDichDuAn;
+    private javax.swing.JTable giaoDichTrongDuAn;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

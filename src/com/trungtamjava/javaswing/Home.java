@@ -22,6 +22,7 @@ public class Home extends javax.swing.JFrame {
             String sql =String.format("select * from giao_dich\n"
                     + "where userName='%s' and duAn is null",name);
             Statement stt=conn.createStatement();
+            Statement stt2=conn.createStatement();
             java.sql.ResultSet res=stt.executeQuery(sql);
             while(res.next()){
                 String ngayTmp=LocalDate.parse(res.getString("ngay"),fmt_out).format(fmt);
@@ -39,20 +40,35 @@ public class Home extends javax.swing.JFrame {
             //Lấy dự án 
             String sql_getDuAn=String.format("select * from du_an_kd\n"
                     + "where userName='%s'",name);
-            stt.executeQuery(sql_getDuAn);
+            res=stt.executeQuery(sql_getDuAn);
             while(res.next()){
-                String tenDuAn=res.getString("tenDuAn");
-                dataDuAn.add(new duAn(tenDuAn,
+                String tenDuAn=res.getString("duAn");
+                System.out.println(tenDuAn);
+                duAn tmp=new duAn(tenDuAn,
                         res.getDouble("vonDauTu"),
                         res.getDouble("chiPhi"),
-                        res.getDouble("mucTieuLoiNhuan")));
+                        res.getDouble("mucTieuLoiNhuan"));
                 String sql_getGiaoDichDuAn=String.format("select * from giao_dich\n"
                         + "where userName='%s' and duAn='%s'",name,tenDuAn);
-//                java.sql.ResultSet res2=stt.executeQuery(sql_getGiaoDichDuAn);
-                
+                java.sql.ResultSet res2=stt2.executeQuery(sql_getGiaoDichDuAn);
+                while(res2.next()){
+//                    System.out.print(res2.getString("ngay"));
+//                    System.out.print(res2.getString("moTa"));
+//                    System.out.print(res2.getString("loai"));
+//                    System.out.print(res2.getDouble("soTien"));
+//                    System.out.print(res2.getString("ghiChu")); 
+                      tmp.themgiaoDich(res2.getString("moTa"),
+                              res2.getDouble("soTien"),
+                              res2.getDate("ngay").toLocalDate().format(fmt),
+                              res2.getString("ghiChu"));
+                }
+                dataDuAn.add(tmp);
             }
+//            dataDuAn.forEach(i->{
+//                System.out.println(i);
+//            });
         }catch(Exception e){
-        System.out.println("wth");}
+        e.printStackTrace();;}
         this.setLocationRelativeTo(null);
         capNhanBangDGGanday();
     }
