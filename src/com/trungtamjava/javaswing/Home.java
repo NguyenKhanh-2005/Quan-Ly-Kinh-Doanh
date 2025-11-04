@@ -280,9 +280,10 @@ public class Home extends javax.swing.JFrame {
     public void capNhanBangDGGanday(){
         try(java.sql.Connection conn=DatabaseConnection.getConnection()){
             java.sql.Statement stt=conn.createStatement();
-            String sql=("select * from giao_dich\n"
+            String sql=String.format("select * from giao_dich\n"
+                    + "where userName='%s'"
                     + "order by ngay desc\n"
-                    + "limit 50;");
+                    + "limit 50;",name);
             java.sql.ResultSet res=stt.executeQuery(sql);
             DefaultTableModel model = (DefaultTableModel) gdGanDayTable.getModel();
             model.setRowCount(0);
