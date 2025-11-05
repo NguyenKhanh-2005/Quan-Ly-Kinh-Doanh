@@ -44,6 +44,9 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
         });
 
         bangDuAn.setModel(new javax.swing.table.DefaultTableModel(
@@ -88,6 +91,11 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
         });
 
         btnThemVon.setText("Thêm vốn đầu tư");
+        btnThemVon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemVonActionPerformed(evt);
+            }
+        });
 
         btnXoaDuAn.setText("Xoá dự án");
         btnXoaDuAn.addActionListener(new java.awt.event.ActionListener() {
@@ -176,7 +184,7 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
     }//GEN-LAST:event_btnXemChiTietActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        root.capNhanBangDGGanday();
+        
     }//GEN-LAST:event_formWindowClosed
 
     private void btnXoaDuAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaDuAnActionPerformed
@@ -189,6 +197,19 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
         capNhanAllBang();
         javax.swing.JOptionPane.showMessageDialog(null, "Đã xoá dự án thành công!");
     }//GEN-LAST:event_btnXoaDuAnActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        root.capNhanBangDGGanday();
+    }//GEN-LAST:event_formWindowClosing
+
+    private void btnThemVonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemVonActionPerformed
+        int row = bangDuAn.getSelectedRow();
+        if (row == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một dự án để thêm vốn!");
+            return;
+        }
+        new themVonDauTu(this, row).setVisible(true);        
+    }//GEN-LAST:event_btnThemVonActionPerformed
     
     public void capNhanAllBang(){
         DefaultTableModel model=(DefaultTableModel) bangDuAn.getModel();

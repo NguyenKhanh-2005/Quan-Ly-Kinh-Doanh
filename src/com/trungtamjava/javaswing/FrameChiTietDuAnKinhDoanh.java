@@ -1,5 +1,6 @@
 package com.trungtamjava.javaswing;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -67,8 +68,8 @@ giaoDichTrongDuAn.setDefaultRenderer(Object.class, new javax.swing.table.Default
         jScrollPane2 = new javax.swing.JScrollPane();
         giaoDichTrongDuAn = new javax.swing.JTable();
         btnThemGiaoDichDuAn = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnXoaGd = new javax.swing.JButton();
+        btnSuaGiaoDich = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -112,9 +113,19 @@ giaoDichTrongDuAn.setDefaultRenderer(Object.class, new javax.swing.table.Default
             }
         });
 
-        jButton3.setText("Xoá giao dịch");
+        btnXoaGd.setText("Xoá giao dịch");
+        btnXoaGd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaGdActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Sửa giao dịch");
+        btnSuaGiaoDich.setText("Sửa giao dịch");
+        btnSuaGiaoDich.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaGiaoDichActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -127,9 +138,9 @@ giaoDichTrongDuAn.setDefaultRenderer(Object.class, new javax.swing.table.Default
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 344, Short.MAX_VALUE)
                         .addComponent(btnThemGiaoDichDuAn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
+                        .addComponent(btnXoaGd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4))
+                        .addComponent(btnSuaGiaoDich))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -139,8 +150,8 @@ giaoDichTrongDuAn.setDefaultRenderer(Object.class, new javax.swing.table.Default
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(btnThemGiaoDichDuAn)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(btnXoaGd)
+                    .addComponent(btnSuaGiaoDich))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
                 .addContainerGap())
@@ -156,6 +167,29 @@ giaoDichTrongDuAn.setDefaultRenderer(Object.class, new javax.swing.table.Default
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         root.capNhanAllBang();
     }//GEN-LAST:event_formWindowClosed
+
+    private void btnSuaGiaoDichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaGiaoDichActionPerformed
+        int row=giaoDichTrongDuAn.getSelectedRow();
+        if(row==-1){
+            
+        }
+        else{
+            giaoDich a=data.get(row);
+            new ThemChiTieu(this,a.getLoai(),a.getMoTa(),a.getSoTien(),a.getNgay().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),a.getGhiChu(),row).setVisible(true);
+        }
+        
+    }//GEN-LAST:event_btnSuaGiaoDichActionPerformed
+
+    private void btnXoaGdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaGdActionPerformed
+        int row=giaoDichTrongDuAn.getSelectedRow();
+        if(row==-1){
+            
+        }
+        else{
+            data.remove(row);
+            capNhatAllBang();
+        }
+    }//GEN-LAST:event_btnXoaGdActionPerformed
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -178,11 +212,11 @@ giaoDichTrongDuAn.setDefaultRenderer(Object.class, new javax.swing.table.Default
 //        java.awt.EventQueue.invokeLater(() -> new FrameChiTietDuAnKinhDoanh().setVisible(true));
 //    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSuaGiaoDich;
     private javax.swing.JButton btnThemGiaoDichDuAn;
+    private javax.swing.JButton btnXoaGd;
     private javax.swing.JTable giaoDichTrongDuAn;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
