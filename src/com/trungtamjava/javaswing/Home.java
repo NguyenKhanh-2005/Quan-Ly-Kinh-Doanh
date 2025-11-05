@@ -325,14 +325,14 @@ public class Home extends javax.swing.JFrame {
                                                    insert into du_an_kd
                                                    values
                                                    """);
-            boolean check1=false,check2=false;
-            String sql_themGiaoDichDuAn=String.format("""
-                                                      insert into giao_dich(userName,duAn,loai,moTa,ngay,soTien,ghiChu)
-                                                      values
-                                                      """);
+            boolean check1=false;
+            String sql_themGiaoDich="";
             for(int i=0;i<dataDuAn.size();i++){
                 check1=true;
+                boolean check2=false;
                 duAn a=dataDuAn.get(i);
+                stt.executeUpdate(sql_xoagdDuAn);
+                stt.executeUpdate(sql_xoaduAn);
                 sql_themLaiDuLieu+=String.format("('%s','%s',%f,%f,%f,%f,%f,%f)",
                         name,
                         a.getTenDuAn(),
@@ -347,7 +347,7 @@ public class Home extends javax.swing.JFrame {
                 for(int j=0;j<a.getDanhSachgiaoDich().size();j++){
                     check2=true;
                     giaoDich b=a.getDanhSachgiaoDich().get(j);
-                    sql_themGiaoDichDuAn+=String.format("('%s','%s','%s','%s','%s',%f,'%s')",
+                    sql_themGiaoDich+=String.format("insert into giao_dich(userName,duAn,loai,moTa,ngay,soTien,ghiChu) values('%s','%s','%s','%s','%s',%f,'%s');\n",
                             name,
                             a.getTenDuAn(),
                             b.getLoai(),
@@ -355,18 +355,23 @@ public class Home extends javax.swing.JFrame {
                             b.getNgay(),
                             b.getSoTien(),
                             b.getGhiChu());
-                    if(j<a.getDanhSachgiaoDich().size()-1) sql_themGiaoDichDuAn+=",\n";
-                    else sql_themGiaoDichDuAn+=";\n";
                 }
+                
             }
             System.out.println(sql_xoaduAn);
             System.out.println(sql_xoagdDuAn);
             System.out.println(sql_themLaiDuLieu);
-            System.out.println(sql_themGiaoDichDuAn);
-            stt.executeUpdate(sql_xoagdDuAn);
-            stt.executeUpdate(sql_xoaduAn);
+            System.out.println(sql_themGiaoDich);
+            
             if(check1) stt.executeUpdate(sql_themLaiDuLieu);
-            if(check2) stt.executeUpdate(sql_themGiaoDichDuAn);
+            String[] commands = sql_themGiaoDich.split(";");
+            for (String cmd : commands) {
+                cmd = cmd.trim();
+                if (!cmd.isEmpty()) { // bỏ dòng trống
+                    stt.executeUpdate(cmd);
+                    System.out.println("Đã thực thi: " + cmd);
+                }
+            }
         }catch(Exception e){
             System.out.println("loi nap nhat duan");
         }

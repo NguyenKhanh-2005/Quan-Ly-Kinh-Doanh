@@ -12,6 +12,7 @@ public class ThemChiTieu extends javax.swing.JFrame {
     private int rowPick;
     LocalDate ngay;
     int check;
+    private FrameChiTietDuAnKinhDoanh root;
     private java.beans.PropertyChangeSupport pcs = new java.beans.PropertyChangeSupport(this);
     DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private PanelGiaoDichCaNhan parent;
@@ -36,6 +37,23 @@ public class ThemChiTieu extends javax.swing.JFrame {
         this.parent=parent;
         setLocationRelativeTo(null);
         check = 2;
+        rowPick=rowIndex;
+
+        // Set dữ liệu sẵn vào các ô nhập
+        loaitxt.setSelectedItem(loai);
+        moTatxt.setText(moTa);
+        soTientxt.setText(String.valueOf(soTien));
+        ngaytxt.setText(ngay);
+        ghiChutxt.setText(ghiChu);
+    }
+    public ThemChiTieu(FrameChiTietDuAnKinhDoanh parent, String loai, String moTa, double soTien, String ngay, String ghiChu, int rowIndex) {
+        //sửa giaoo dịch dự án
+        initComponents();
+        getRootPane().setDefaultButton(btnOK);
+        this.data = parent.data;
+        this.root=parent;
+        setLocationRelativeTo(null);
+        check = 4;
         rowPick=rowIndex;
 
         // Set dữ liệu sẵn vào các ô nhập
@@ -255,8 +273,18 @@ public class ThemChiTieu extends javax.swing.JFrame {
                 data.add(new giaoDich(moTa,Loai,ngay.format(fmt),soTien,ghiChu));
                 parent_duAn.capNhatAllBang();
             }catch(Exception e){
-                
+                javax.swing.JOptionPane.showMessageDialog(this, "Dữ liệu không hợp lệ!");
             }
+        }
+        else if(check==4){
+            capNhatData();
+            giaoDich gd=root.data.get(rowPick);
+            gd.setLoai(Loai);
+            gd.setGhiChu(ghiChu);
+            gd.setMoTa(moTa);
+            gd.setNgay(ngay);
+            gd.setSoTien(soTien);
+            root.capNhatAllBang();
         }
         dispose();
     }//GEN-LAST:event_btnOKActionPerformed
