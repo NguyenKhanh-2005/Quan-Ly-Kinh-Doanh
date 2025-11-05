@@ -63,7 +63,7 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="quay l&#x1ea1;i"/>
+        <Property name="text" type="java.lang.String" value="L&#x1b0;u"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane2">

@@ -253,7 +253,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnQuayLai">
       <Properties>
-        <Property name="text" type="java.lang.String" value="quay l&#x1ea1;i"/>
+        <Property name="text" type="java.lang.String" value="L&#x1b0;u"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnQuayLaiActionPerformed"/>

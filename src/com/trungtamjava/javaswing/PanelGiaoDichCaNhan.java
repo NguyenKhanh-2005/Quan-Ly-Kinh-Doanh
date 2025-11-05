@@ -193,7 +193,7 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
             }
         });
 
-        btnQuayLai.setText("quay lại");
+        btnQuayLai.setText("Lưu");
         btnQuayLai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnQuayLaiActionPerformed(evt);

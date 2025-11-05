@@ -105,7 +105,7 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("quay lại");
+        jButton1.setText("Lưu");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

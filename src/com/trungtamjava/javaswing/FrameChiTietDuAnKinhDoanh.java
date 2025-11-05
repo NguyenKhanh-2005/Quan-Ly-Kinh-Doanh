@@ -78,7 +78,7 @@ giaoDichTrongDuAn.setDefaultRenderer(Object.class, new javax.swing.table.Default
             }
         });
 
-        jButton1.setText("quay lại");
+        jButton1.setText("Lưu");
 
         giaoDichTrongDuAn.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
