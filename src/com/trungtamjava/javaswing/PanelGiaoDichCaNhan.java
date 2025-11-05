@@ -12,18 +12,53 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
     String name;
     java.sql.Connection conn;
     java.sql.Statement stt;
+    Home root;
     public PanelGiaoDichCaNhan(Home a,String name) {
         this.name=name;
         data=a.dataGiaoDichCaNhan;
-        data.forEach(i->{
-            System.out.println(i);
-        });
+        root=a;
+//        data.forEach(i->{
+//            System.out.println(i);
+//        });
         initComponents();
         try{
             conn=DatabaseConnection.getConnection();
             stt=conn.createStatement();
         }catch(Exception e){}
         capNhatAllbang();
+        // Tô màu nền ô "Loại" dựa theo giá trị cột "Số tiền"
+    jTable1.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
+        @Override
+        public java.awt.Component getTableCellRendererComponent(javax.swing.JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
+
+            java.awt.Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            // Nếu đang chọn dòng thì ưu tiên màu chọn của hệ thống
+            if (isSelected) {
+                cell.setBackground(table.getSelectionBackground());
+                return cell;
+            }
+
+            // Mặc định nền trắng
+            cell.setBackground(java.awt.Color.WHITE);
+            if (column == 0) {
+                try {
+                    double soTien = Double.parseDouble(table.getValueAt(row, 2).toString());
+                    if (soTien < 0) {
+                        cell.setBackground(new java.awt.Color(255, 204, 204)); // đỏ nhạt
+                    } else if (soTien > 0) {
+                        cell.setBackground(new java.awt.Color(204, 255, 204)); // xanh nhạt
+                    }
+                } catch (Exception e) {
+                    cell.setBackground(java.awt.Color.WHITE);
+                }
+            }
+
+            return cell;
+        }
+    });
+
 //        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
     }
@@ -171,13 +206,13 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane2)
             .addGroup(layout.createSequentialGroup()
-                .addGap(183, 183, 183)
-                .addComponent(btnThemGiaoDich, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(169, 169, 169)
+                .addComponent(btnThemGiaoDich, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnXuaGiaoDich)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnXoaGiaoDich)
-                .addContainerGap(241, Short.MAX_VALUE))
+                .addGap(45, 241, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(btnQuayLai)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -239,9 +274,10 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         capNhatSql();
+        root.capNhanBangDGGanday();
         dispose();
     }//GEN-LAST:event_formWindowClosing
-        public void capNhatSql(){
+    public void capNhatSql(){
         String sql1=String.format("delete from giao_dich\n"
         + "where userName='%s' and duAn is null;\n",name);
         String sql2=String.format("insert into giao_dich(userName,loai,moTa,ngay,soTien,ghiChu)\n"
@@ -296,7 +332,7 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
         data.add(new giaoDich(moTa, loai,ngay, soTien,ghiChu));
     }
     public void xoaDongDangChon() {
-        int row = jTable1.getSelectedRow(); // Lấy dòng đang chọn
+        int row = jTable1.getSelectedRow();
         if (row == -1) {
             javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một giao dịch để xoá!");
             

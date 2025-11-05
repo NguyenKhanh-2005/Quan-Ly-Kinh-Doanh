@@ -92,7 +92,12 @@ public class Home extends javax.swing.JFrame {
         menuDangxuat = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         buttonDuAnKinhDoanh.setBackground(new java.awt.Color(153, 255, 255));
         buttonDuAnKinhDoanh.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -238,7 +243,9 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -260,8 +267,8 @@ public class Home extends javax.swing.JFrame {
             "Xác nhận đăng xuất",
             JOptionPane.YES_NO_OPTION
         );
-
         if (confirm == JOptionPane.YES_OPTION) {
+            capNhatSql();
             new MainFrame().setVisible(true);
             this.dispose();
         }
@@ -275,7 +282,96 @@ public class Home extends javax.swing.JFrame {
     private void buttonChiTieuCaNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChiTieuCaNhanActionPerformed
         new PanelGiaoDichCaNhan(this,name).setVisible(true);
     }//GEN-LAST:event_buttonChiTieuCaNhanActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        capNhatSql();
+        System.exit(0);
+    }//GEN-LAST:event_formWindowClosing
     
+    public void capNhatSql(){
+//        String sql1=String.format("delete from giao_dich\n"
+//        + "where userName='%s' and duAn is null;\n",name);
+//        String sql2=String.format("insert into giao_dich(userName,loai,moTa,ngay,soTien,ghiChu)\n"
+//        + "values\n",name);
+//        for(int j=0;j<dataGiaoDichCaNhan.size();j++){
+//            giaoDich i=dataGiaoDichCaNhan.get(j);
+//            sql2+=String.format("('%s','%s','%s','%s',%f,'%s')",
+//            name,
+//            i.getLoai(),
+//            i.getMoTa(),
+//            i.getNgay(),
+//            i.getSoTien(),
+//            i.getGhiChu());
+//            if(j<dataGiaoDichCaNhan.size()-1) sql2+=",\n";
+//            else sql2+=";\n";
+//        }
+//        try(java.sql.Connection conn=DatabaseConnection.getConnection()){
+//            java.sql.Statement stt=conn.createStatement();
+//            stt.executeUpdate(sql1);
+//            stt.executeUpdate(sql2);
+//
+//        }catch(Exception e){System.out.println("loi save");}
+        try(java.sql.Connection conn=DatabaseConnection.getConnection()){
+            java.sql.Statement stt=conn.createStatement();
+            String sql_xoaduAn=String.format("""
+                                     delete from du_an_kd
+                                     where userName='%s';
+                                     """,name);
+            String sql_xoagdDuAn=String.format("""
+                                               delete from giao_dich
+                                               where userName='%s' and duAn is not null;
+                                               """,name);
+            String sql_themLaiDuLieu=String.format("""
+                                                   insert into du_an_kd
+                                                   values
+                                                   """);
+            boolean check1=false,check2=false;
+            String sql_themGiaoDichDuAn=String.format("""
+                                                      insert into giao_dich(userName,duAn,loai,moTa,ngay,soTien,ghiChu)
+                                                      values
+                                                      """);
+            for(int i=0;i<dataDuAn.size();i++){
+                check1=true;
+                duAn a=dataDuAn.get(i);
+                sql_themLaiDuLieu+=String.format("('%s','%s',%f,%f,%f,%f,%f,%f)",
+                        name,
+                        a.getTenDuAn(),
+                        a.getVonDauTu(),
+                        a.getMucTieuLoiNhuan(),
+                        a.tinhTongChiPhi(),
+                        a.tinhTongThuNhap(),
+                        a.tinhLoiNhuan(),
+                        a.getVonDauTu() > 0 ? (a.tinhLoiNhuan() / a.getVonDauTu()) * 100 : 0);
+                if(i<dataDuAn.size()-1) sql_themLaiDuLieu+=",\n";
+                else sql_themLaiDuLieu+=";\n";
+                for(int j=0;j<a.getDanhSachgiaoDich().size();j++){
+                    check2=true;
+                    giaoDich b=a.getDanhSachgiaoDich().get(j);
+                    sql_themGiaoDichDuAn+=String.format("('%s','%s','%s','%s','%s',%f,'%s')",
+                            name,
+                            a.getTenDuAn(),
+                            b.getLoai(),
+                            b.getMoTa(),
+                            b.getNgay(),
+                            b.getSoTien(),
+                            b.getGhiChu());
+                    if(j<a.getDanhSachgiaoDich().size()-1) sql_themGiaoDichDuAn+=",\n";
+                    else sql_themGiaoDichDuAn+=";\n";
+                }
+            }
+            System.out.println(sql_xoaduAn);
+            System.out.println(sql_xoagdDuAn);
+            System.out.println(sql_themLaiDuLieu);
+            System.out.println(sql_themGiaoDichDuAn);
+            stt.executeUpdate(sql_xoagdDuAn);
+            stt.executeUpdate(sql_xoaduAn);
+            if(check1) stt.executeUpdate(sql_themLaiDuLieu);
+            if(check2) stt.executeUpdate(sql_themGiaoDichDuAn);
+        }catch(Exception e){
+            System.out.println("loi nap nhat duan");
+        }
+
+    }
     public void capNhanBangDGGanday(){
         try(java.sql.Connection conn=DatabaseConnection.getConnection()){
             java.sql.Statement stt=conn.createStatement();
@@ -290,7 +386,8 @@ public class Home extends javax.swing.JFrame {
                 model.addRow(new Object[]{
                     res.getString("loai"),
                     res.getString("moTa"),
-                    res.getDate("ngay").toLocalDate().format(fmt),res.getDouble("soTien"),
+                    res.getDouble("soTien"),
+                    res.getDate("ngay").toLocalDate().format(fmt),
                     res.getString("ghiChu")});
             }
         }catch(Exception e){System.out.println("wth3");}

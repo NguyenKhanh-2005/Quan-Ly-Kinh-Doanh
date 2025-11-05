@@ -50,6 +50,7 @@ public class ThemChiTieu extends javax.swing.JFrame {
     public ThemChiTieu(FrameChiTietDuAnKinhDoanh parent){
         parent_duAn=parent;
         initComponents();
+        this.data=parent.data;
         setLocationRelativeTo(null);
         getRootPane().setDefaultButton(btnOK);
         check=3;
@@ -61,8 +62,8 @@ public class ThemChiTieu extends javax.swing.JFrame {
         Loai=loaitxt.getSelectedItem().toString();
         ghiChu=ghiChutxt.getText();
         soTien=Double.parseDouble(soTientxt.getText());
+        if(thuChi.getSelectedItem().toString().equals("Chi Tiêu")) soTien=0-soTien;
         ngay=LocalDate.parse(ngaytxt.getText(),fmt);
-        
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -77,6 +78,8 @@ public class ThemChiTieu extends javax.swing.JFrame {
         jFrame1 = new javax.swing.JFrame();
         jPopupMenu4 = new javax.swing.JPopupMenu();
         jFileChooser1 = new javax.swing.JFileChooser();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         moTatxt = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -89,6 +92,7 @@ public class ThemChiTieu extends javax.swing.JFrame {
         ghiChutxt = new javax.swing.JTextField();
         btnCancel = new javax.swing.JButton();
         btnOK = new javax.swing.JButton();
+        thuChi = new javax.swing.JComboBox<>();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -159,33 +163,35 @@ public class ThemChiTieu extends javax.swing.JFrame {
             }
         });
 
+        thuChi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thu Nhập", "Chi Tiêu", " ", " " }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(loaitxt, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(moTatxt, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(soTientxt, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ngaytxt, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ghiChutxt, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(loaitxt, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(moTatxt)
+                    .addComponent(soTientxt)
+                    .addComponent(ngaytxt)
+                    .addComponent(ghiChutxt)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 73, Short.MAX_VALUE)
+                        .addComponent(btnCancel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnOK))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(thuChi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
-                .addComponent(btnCancel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnOK)
-                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,10 +217,12 @@ public class ThemChiTieu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ghiChutxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(thuChi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
                     .addComponent(btnOK))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -244,7 +252,7 @@ public class ThemChiTieu extends javax.swing.JFrame {
         else if(check==3){  //thêm giao dịch dự án
             try{
                 capNhatData();
-                
+                data.add(new giaoDich(moTa,Loai,ngay.format(fmt),soTien,ghiChu));
                 parent_duAn.capNhatAllBang();
             }catch(Exception e){
                 
@@ -286,6 +294,8 @@ public class ThemChiTieu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOK;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JTextField ghiChutxt;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JDialog jDialog2;
@@ -305,5 +315,6 @@ public class ThemChiTieu extends javax.swing.JFrame {
     private javax.swing.JTextField moTatxt;
     private javax.swing.JTextField ngaytxt;
     private javax.swing.JTextField soTientxt;
+    private javax.swing.JComboBox<String> thuChi;
     // End of variables declaration//GEN-END:variables
 }

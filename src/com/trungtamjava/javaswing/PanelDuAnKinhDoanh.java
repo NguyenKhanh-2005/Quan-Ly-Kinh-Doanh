@@ -16,8 +16,10 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PanelDuAnKinhDoanh.class.getName());
     ArrayList<duAn> data;
+    Home root;
     public PanelDuAnKinhDoanh(Home a) {
         data=a.dataDuAn;
+        this.root=a;
         initComponents();
         capNhanAllBang();
     }
@@ -29,15 +31,20 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         bangDuAn = new javax.swing.JTable();
         btnThemDuAn = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnThemVon = new javax.swing.JButton();
+        btnXoaDuAn = new javax.swing.JButton();
+        btnSuaDuAn = new javax.swing.JButton();
         btnXemChiTiet = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Dự Án Kinh Doanh");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         bangDuAn.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -80,11 +87,16 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Thêm vốn đầu tư");
+        btnThemVon.setText("Thêm vốn đầu tư");
 
-        jButton3.setText("Xoá dự án");
+        btnXoaDuAn.setText("Xoá dự án");
+        btnXoaDuAn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaDuAnActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Sửa dự án");
+        btnSuaDuAn.setText("Sửa dự án");
 
         btnXemChiTiet.setText("Xem chi tiết dự án");
         btnXemChiTiet.addActionListener(new java.awt.event.ActionListener() {
@@ -108,11 +120,11 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
                 .addContainerGap(49, Short.MAX_VALUE)
                 .addComponent(btnThemDuAn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(btnThemVon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(btnXoaDuAn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addComponent(btnSuaDuAn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnXemChiTiet)
                 .addGap(45, 45, 45))
@@ -122,7 +134,7 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnThemDuAn, btnXemChiTiet, jButton2, jButton3, jButton4});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnSuaDuAn, btnThemDuAn, btnThemVon, btnXemChiTiet, btnXoaDuAn});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,16 +145,16 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThemDuAn)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
+                    .addComponent(btnThemVon)
+                    .addComponent(btnXoaDuAn)
+                    .addComponent(btnSuaDuAn)
                     .addComponent(btnXemChiTiet))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnThemDuAn, btnXemChiTiet, jButton2, jButton3, jButton4});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnSuaDuAn, btnThemDuAn, btnThemVon, btnXemChiTiet, btnXoaDuAn});
 
         pack();
         setLocationRelativeTo(null);
@@ -159,9 +171,24 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
             return;
         }
         else{
-           new FrameChiTietDuAnKinhDoanh(data.get(row).getDanhSachgiaoDich()).setVisible(true);
+           new FrameChiTietDuAnKinhDoanh(data.get(row).getDanhSachgiaoDich(),this).setVisible(true);
         }
     }//GEN-LAST:event_btnXemChiTietActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        root.capNhanBangDGGanday();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void btnXoaDuAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaDuAnActionPerformed
+        int row = bangDuAn.getSelectedRow();
+        if (row == -1) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Vui lòng chọn một dự án để xoá!");
+            return;
+        }
+        data.remove(row);
+        capNhanAllBang();
+        javax.swing.JOptionPane.showMessageDialog(null, "Đã xoá dự án thành công!");
+    }//GEN-LAST:event_btnXoaDuAnActionPerformed
     
     public void capNhanAllBang(){
         DefaultTableModel model=(DefaultTableModel) bangDuAn.getModel();
@@ -184,6 +211,7 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
 //            model.addColumn(new Object[]{i.getTenDuAn(),i.getVonDauTu(),i.getMucTieuLoiNhuan(),});
         });
     }
+    
 //    public void themDuAn(String ten,double von,double chiPhiDuKien,double mucTieuLoiNhuan){
 //        data.add(new duAn(ten,von,chiPhiDuKien,mucTieuLoiNhuan));
 //    }
@@ -209,25 +237,27 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(() -> new PanelDuAnKinhDoanh().setVisible(true));
 //    }
-    public void capNhanBang(int row,String tenDuAn,double vonDauTu,double chiPhi,double doanhThu,double loiNhuan,double Lai_Lo,double tiLeLoiNhuan){
+    public void capNhanBang(int row,String tenDuAn,double vonDauTu,double chiPhi,double doanhThu,double MucTieuloiNhuan,double Lai_Lo,double tiLeLoiNhuan){
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) bangDuAn.getModel();
         model.setValueAt(tenDuAn, row,0);
         model.setValueAt(vonDauTu, row, 1);
         model.setValueAt(chiPhi,row,2);
         model.setValueAt(doanhThu,row,3);
-        model.setValueAt(loiNhuan,row,4);
+        model.setValueAt(MucTieuloiNhuan,row,4);
         model.setValueAt(Lai_Lo,row,5);
         model.setValueAt(tiLeLoiNhuan+"%",row,6);
+        data.add(new duAn(tenDuAn,vonDauTu,chiPhi,MucTieuloiNhuan));
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable bangDuAn;
+    private javax.swing.JButton btnSuaDuAn;
     private javax.swing.JButton btnThemDuAn;
+    private javax.swing.JButton btnThemVon;
     private javax.swing.JButton btnXemChiTiet;
+    private javax.swing.JButton btnXoaDuAn;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane4;
     // End of variables declaration//GEN-END:variables

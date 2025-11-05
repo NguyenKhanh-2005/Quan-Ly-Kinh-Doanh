@@ -7,9 +7,46 @@ public class FrameChiTietDuAnKinhDoanh extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrameChiTietDuAnKinhDoanh.class.getName());
     ArrayList<giaoDich> data;
-    public FrameChiTietDuAnKinhDoanh(ArrayList<giaoDich> a){
+    PanelDuAnKinhDoanh root;
+    public FrameChiTietDuAnKinhDoanh(ArrayList<giaoDich> a,PanelDuAnKinhDoanh root){
         this.data=a;
+        this.root=root;
         initComponents();
+        // Tô màu nền ô "Loại" dựa theo giá trị cột "Số tiền"
+giaoDichTrongDuAn.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
+    @Override
+    public java.awt.Component getTableCellRendererComponent(javax.swing.JTable table, Object value,
+            boolean isSelected, boolean hasFocus, int row, int column) {
+
+        java.awt.Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+        // Nếu đang chọn dòng thì ưu tiên màu chọn của hệ thống
+        if (isSelected) {
+            cell.setBackground(table.getSelectionBackground());
+            return cell;
+        }
+
+        // Mặc định nền trắng
+        cell.setBackground(java.awt.Color.WHITE);
+
+        // Chỉ đổi màu nền ở cột "Loại" (cột 0)
+        if (column == 0) {
+            try {
+                double soTien = Double.parseDouble(table.getValueAt(row, 2).toString());
+                if (soTien < 0) {
+                    cell.setBackground(new java.awt.Color(255, 204, 204)); // đỏ nhạt
+                } else if (soTien > 0) {
+                    cell.setBackground(new java.awt.Color(204, 255, 204)); // xanh nhạt
+                }
+            } catch (Exception e) {
+                cell.setBackground(java.awt.Color.WHITE);
+            }
+        }
+
+        return cell;
+    }
+});
+
         capNhatAllBang();
         setLocationRelativeTo(null);
     }
@@ -35,6 +72,11 @@ public class FrameChiTietDuAnKinhDoanh extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jButton1.setText("quay lại");
 
@@ -110,6 +152,10 @@ public class FrameChiTietDuAnKinhDoanh extends javax.swing.JFrame {
     private void btnThemGiaoDichDuAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemGiaoDichDuAnActionPerformed
         new ThemChiTieu(this).setVisible(true);
     }//GEN-LAST:event_btnThemGiaoDichDuAnActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        root.capNhanAllBang();
+    }//GEN-LAST:event_formWindowClosed
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

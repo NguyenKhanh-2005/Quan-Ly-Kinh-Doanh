@@ -54,6 +54,7 @@ public class duAn {
     public double getVonDauTu() { return vonDauTu; }
     public void setVonDauTu(double vonDauTu) { this.vonDauTu = vonDauTu; }
     public double getMucTieuLoiNhuan() { return mucTieuLoiNhuan; }
+    public double getChiPhiDuKien(){return chiPhiDuKien;}
     public ArrayList<giaoDich> getDanhSachgiaoDich() { return danhSachgiaoDich; }
 }
 

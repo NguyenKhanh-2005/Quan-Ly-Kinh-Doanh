@@ -10,6 +10,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowClosed" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosed"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -35,11 +38,11 @@
               <EmptySpace pref="49" max="32767" attributes="0"/>
               <Component id="btnThemDuAn" linkSize="1" min="-2" pref="120" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButton2" linkSize="1" min="-2" max="-2" attributes="0"/>
+              <Component id="btnThemVon" linkSize="1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButton3" linkSize="1" min="-2" max="-2" attributes="0"/>
+              <Component id="btnXoaDuAn" linkSize="1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButton4" linkSize="1" min="-2" max="-2" attributes="0"/>
+              <Component id="btnSuaDuAn" linkSize="1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnXemChiTiet" linkSize="1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
@@ -61,9 +64,9 @@
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnThemDuAn" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton2" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton3" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton4" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnThemVon" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnXoaDuAn" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnSuaDuAn" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnXemChiTiet" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -152,17 +155,20 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThemDuAnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="btnThemVon">
       <Properties>
         <Property name="text" type="java.lang.String" value="Th&#xea;m v&#x1ed1;n &#x111;&#x1ea7;u t&#x1b0;"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="btnXoaDuAn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Xo&#xe1; d&#x1ef1; &#xe1;n"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoaDuAnActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="btnSuaDuAn">
       <Properties>
         <Property name="text" type="java.lang.String" value="S&#x1eed;a d&#x1ef1; &#xe1;n"/>
       </Properties>

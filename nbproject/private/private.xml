@@ -3,23 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/G:/BTL_java/Java%20Swing/src/com/trungtamjava/javaswing/PanelDuAnKinhDoanh.java</file>
-            <file>file:/G:/BTL_java/Java%20Swing/src/com/trungtamjava/javaswing/MainFrame.java</file>
-            <file>file:/G:/BTL_java/Java%20Swing/src/com/trungtamjava/javaswing/Home.java</file>
-            <file>file:/G:/BTL_java/Java%20Swing/src/com/trungtamjava/javaswing/FrameChiTietDuAnKinhDoanh.java</file>
-            <file>file:/G:/BTL_java/Java%20Swing/src/com/trungtamjava/javaswing/ThemChiTieu.java</file>
-            <file>file:/G:/BTL_java/Java%20Swing/src/com/trungtamjava/javaswing/giaoDich.java</file>
-            <file>file:/G:/BTL_java/Java%20Swing/src/com/trungtamjava/javaswing/PanelGiaoDichCaNhan.java</file>
-            <file>file:/G:/BTL_java/Java%20Swing/src/com/trungtamjava/javaswing/FrameDangKi.java</file>
-=======
-            <file>file:/D:/documents/github_pj/Quan-Ly-Kinh-Doanh/src/com/trungtamjava/javaswing/MainFrame.java</file>
             <file>file:/D:/documents/github_pj/Quan-Ly-Kinh-Doanh/src/com/trungtamjava/javaswing/Home.java</file>
-            <file>file:/D:/documents/github_pj/Quan-Ly-Kinh-Doanh/src/com/trungtamjava/javaswing/giaoDich.java</file>
-            <file>file:/D:/documents/github_pj/Quan-Ly-Kinh-Doanh/src/com/trungtamjava/javaswing/PanelDuAnKinhDoanh.java</file>
-            <file>file:/D:/documents/github_pj/Quan-Ly-Kinh-Doanh/src/com/trungtamjava/javaswing/frameThemDuAn.java</file>
+            <file>file:/D:/documents/github_pj/Quan-Ly-Kinh-Doanh/src/com/trungtamjava/javaswing/FrameTongQuan.java</file>
             <file>file:/D:/documents/github_pj/Quan-Ly-Kinh-Doanh/src/com/trungtamjava/javaswing/duAn.java</file>
->>>>>>> a9eeea02b8ba3c3c7b899fbc0bb93c6cab0592db
+            <file>file:/D:/documents/github_pj/Quan-Ly-Kinh-Doanh/src/com/trungtamjava/javaswing/ThemChiTieu.java</file>
+            <file>file:/D:/documents/github_pj/Quan-Ly-Kinh-Doanh/src/com/trungtamjava/javaswing/FrameChiTietDuAnKinhDoanh.java</file>
+            <file>file:/D:/documents/github_pj/Quan-Ly-Kinh-Doanh/src/com/trungtamjava/javaswing/PanelDuAnKinhDoanh.java</file>
+            <file>file:/D:/documents/github_pj/Quan-Ly-Kinh-Doanh/src/com/trungtamjava/javaswing/PanelGiaoDichCaNhan.java</file>
+            <file>file:/D:/documents/github_pj/Quan-Ly-Kinh-Doanh/src/com/trungtamjava/javaswing/frameThemDuAn.java</file>
         </group>
     </open-files>
 </project-private>
