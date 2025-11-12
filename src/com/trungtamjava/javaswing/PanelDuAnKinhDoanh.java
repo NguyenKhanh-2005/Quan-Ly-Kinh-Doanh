@@ -198,7 +198,7 @@ public class PanelDuAnKinhDoanh extends javax.swing.JFrame {
     }//GEN-LAST:event_btnXoaDuAnActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        root.capNhanBangDGGanday();
+        root.capNhanBangDGGanday("");
     }//GEN-LAST:event_formWindowClosing
 
     private void btnThemVonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemVonActionPerformed

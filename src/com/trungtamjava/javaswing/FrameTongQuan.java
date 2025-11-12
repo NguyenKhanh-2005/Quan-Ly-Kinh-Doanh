@@ -59,7 +59,8 @@ public class FrameTongQuan extends javax.swing.JFrame {
                 //cập nhật tỉ lệ
                 if(chi!=0){
                     tile=(tong+chi)/chi*100;
-                    tiLeThuChi.setText(Double.toString(tile)+"%");
+                    String result1 = String.format("%.2f%%", tile);
+                    tiLeThuChi.setText(result1);
                 }
                 else{
                     tiLeThuChi.setText("Tốt");

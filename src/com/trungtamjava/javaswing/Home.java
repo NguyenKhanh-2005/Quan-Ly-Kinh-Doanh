@@ -70,7 +70,7 @@ public class Home extends javax.swing.JFrame {
         }catch(Exception e){
         e.printStackTrace();;}
         this.setLocationRelativeTo(null);
-        capNhanBangDGGanday();
+        capNhanBangDGGanday("");
     }
 
     @SuppressWarnings("unchecked")
@@ -86,8 +86,8 @@ public class Home extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         gdGanDayTable = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        timKiem = new javax.swing.JTextField();
+        textTimKiem = new javax.swing.JTextField();
+        timKiem = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuDangxuat = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -176,17 +176,24 @@ public class Home extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(gdGanDayTable);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("Tìm kiếm:");
+        timKiem.setBackground(new java.awt.Color(0, 153, 153));
+        timKiem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        timKiem.setText("Tìm Kiếm(theo mô tả):");
+        timKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timKiemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(timKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(timKiem)
+                .addComponent(textTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -194,8 +201,8 @@ public class Home extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(timKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(textTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                    .addComponent(timKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -287,6 +294,10 @@ public class Home extends javax.swing.JFrame {
         capNhatSql();
         System.exit(0);
     }//GEN-LAST:event_formWindowClosing
+
+    private void timKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timKiemActionPerformed
+        capNhanBangDGGanday(textTimKiem.getText());
+    }//GEN-LAST:event_timKiemActionPerformed
     
     public void capNhatSql(){
 //        String sql1=String.format("delete from giao_dich\n"
@@ -377,13 +388,13 @@ public class Home extends javax.swing.JFrame {
         }
 
     }
-    public void capNhanBangDGGanday(){
+    public void capNhanBangDGGanday(String motaTimkiem){
         try(java.sql.Connection conn=DatabaseConnection.getConnection()){
             java.sql.Statement stt=conn.createStatement();
             String sql=String.format("select * from giao_dich\n"
-                    + "where userName='%s'"
+                    + "where userName='%s' and moTa like '%%%s%%' "
                     + "order by ngay desc\n"
-                    + "limit 50;",name);
+                    + "limit 50;",name,motaTimkiem);
             java.sql.ResultSet res=stt.executeQuery(sql);
             DefaultTableModel model = (DefaultTableModel) gdGanDayTable.getModel();
             model.setRowCount(0);
@@ -405,7 +416,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton buttonThongTin;
     private javax.swing.JButton buttonTongquan;
     private javax.swing.JTable gdGanDayTable;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
@@ -413,6 +423,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu menuDangxuat;
-    private javax.swing.JTextField timKiem;
+    private javax.swing.JTextField textTimKiem;
+    private javax.swing.JButton timKiem;
     // End of variables declaration//GEN-END:variables
 }

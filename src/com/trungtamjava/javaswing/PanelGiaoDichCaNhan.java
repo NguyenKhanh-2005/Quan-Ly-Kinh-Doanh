@@ -274,7 +274,7 @@ public class PanelGiaoDichCaNhan extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         capNhatSql();
-        root.capNhanBangDGGanday();
+        root.capNhanBangDGGanday("");
         dispose();
     }//GEN-LAST:event_formWindowClosing
     public void capNhatSql(){
